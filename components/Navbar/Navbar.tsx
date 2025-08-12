@@ -9,7 +9,6 @@ import {
 } from "../ui/hover-card";
 
 const Navbar = () => {
-  
   return (
     <header className="relative top-0 left-0 right-0 z-50 backdrop-blur-md shadow-sm">
       <nav className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -25,16 +24,15 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        <div>
-          
-        </div>
+        <div></div>
         <ul className="hidden md:flex items-center space-x-12 text-lg  text-white bg-[#ffffff0f] border-[#ffffff0f] border backdrop-blur-md rounded-full px-8 py-2">
           <li>
             <HoverCard openDelay={1.2}>
-              <HoverCardTrigger>
-                <Link href="#home" className="hover:text-[#e30613] transition">
-                  Home
-                </Link>
+              <HoverCardTrigger
+                href="#home"
+                className="hover:text-[#e30613] transition"
+              >
+                Home
               </HoverCardTrigger>
               <HoverCardContent>
                 The React Framework – created and maintained by @vercel.
@@ -43,10 +41,11 @@ const Navbar = () => {
           </li>
           <li>
             <HoverCard openDelay={1.2}>
-              <HoverCardTrigger>
-                <Link href="#about" className="hover:text-[#e30613] transition">
-                  About Us
-                </Link>
+              <HoverCardTrigger
+                href="#about"
+                className="hover:text-[#e30613] transition"
+              >
+                About Us
               </HoverCardTrigger>
               <HoverCardContent>
                 The React Framework – created and maintained by @vercel.
@@ -55,13 +54,11 @@ const Navbar = () => {
           </li>
           <li>
             <HoverCard openDelay={1.2}>
-              <HoverCardTrigger>
-                <Link
-                  href="#services"
-                  className="hover:text-[#e30613] transition"
-                >
-                  Services
-                </Link>
+              <HoverCardTrigger
+                href="#services"
+                className="hover:text-[#e30613] transition"
+              >
+                Services
               </HoverCardTrigger>
               <HoverCardContent>
                 The React Framework – created and maintained by @vercel.
@@ -70,10 +67,11 @@ const Navbar = () => {
           </li>
           <li>
             <HoverCard openDelay={1.2}>
-              <HoverCardTrigger>
-                <Link href="#blog" className="hover:text-[#e30613] transition">
-                  Blog
-                </Link>
+              <HoverCardTrigger
+                href="#blog"
+                className="hover:text-[#e30613] transition"
+              >
+                Blog
               </HoverCardTrigger>
               <HoverCardContent>
                 The React Framework – created and maintained by @vercel.
@@ -82,10 +80,11 @@ const Navbar = () => {
           </li>
           <li>
             <HoverCard openDelay={1.2}>
-              <HoverCardTrigger>
-                <Link href="#pages" className="hover:text-[#e30613] transition">
-                  Pages
-                </Link>
+              <HoverCardTrigger
+                href="#pages"
+                className="hover:text-[#e30613] transition"
+              >
+                Pages
               </HoverCardTrigger>
               <HoverCardContent>
                 The React Framework – created and maintained by @vercel.
@@ -94,13 +93,11 @@ const Navbar = () => {
           </li>
           <li>
             <HoverCard openDelay={1.2}>
-              <HoverCardTrigger>
-                <Link
-                  href="#contact"
-                  className="hover:text-[#e30613] transition"
-                >
-                  Contact Us
-                </Link>
+              <HoverCardTrigger
+                href="#contact"
+                className="hover:text-[#e30613] transition"
+              >
+                Contact Us
               </HoverCardTrigger>
               <HoverCardContent>
                 The React Framework – created and maintained by @vercel.

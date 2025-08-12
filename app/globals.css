@@ -6,6 +6,10 @@ body {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   background-color: black !important;
+  color: white;
+}
+button {
+  cursor: pointer;
 }
 
 @theme inline {
@@ -132,4 +136,17 @@ body {
 
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite alternate;
+}
+
+.animate-hero-icon {
+  animation: hero-icon 5s  linear infinite alternate;
+}
+
+@keyframes hero-icon {
+  0% {
+    transform: translate(-15px, 60px) rotate(40deg);
+  }
+  100% {
+    transform: translate(10px, 10px) rotate(-40deg);
+  }
 }

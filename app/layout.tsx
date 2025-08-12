@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar/Navbar";
 
 const manRope = Manrope({
   variable: "--font-man-rope",
@@ -21,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={manRope.variable}>
-        <Navbar />
+        {/* <Navbar /> */}
         {children}
       </body>
     </html>
