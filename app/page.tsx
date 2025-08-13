@@ -1,3 +1,4 @@
+import LandingPageBlogs from "@/components/Blogs/LandingPageBlogs";
 import Faq from "@/components/Faq/Faq";
 import AISection from "@/components/Hero/Grow";
 import Hero from "@/components/Hero/Hero";
@@ -13,15 +14,16 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <div className="mx-56">
+      <div className="mx-4 sm:mx-8 md:mx-20 lg:mx-40 xl:mx-56">
         <AISection />
         <OurServices />
-        <VideoServices/>
-        <Vision/>
-        <OurProjects/>
-        <Whyus/>
-        <How/>
-        <Faq/>
+        <VideoServices />
+        <Vision />
+        <OurProjects />
+        <Whyus />
+        <How />
+        <Faq />
+        <LandingPageBlogs />
       </div>
     </>
   );

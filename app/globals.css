@@ -1,10 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
 html,
 body {
   scroll-behavior: smooth;
-  scrollbar-width: thin;
   background-color: black !important;
   color: white;
 }
@@ -12,6 +13,25 @@ button {
   cursor: pointer;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #e30613 0%, #e3061583 100%);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e30613 0%, #e30615bb 100%);
+  transform: scale(1.1);
+}
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -139,7 +159,7 @@ button {
 }
 
 .animate-hero-icon {
-  animation: hero-icon 5s  linear infinite alternate;
+  animation: hero-icon 5s linear infinite alternate;
 }
 
 @keyframes hero-icon {
