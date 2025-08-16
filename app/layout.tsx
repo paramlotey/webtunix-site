@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
+import ReduxProvider from "@/components/Providers/Reduxprovider";
 
 const manRope = Manrope({
   variable: "--font-man-rope",
@@ -19,11 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={manRope.variable}>
+    <ReduxProvider>
+      <html lang="en">
+        <body className={manRope.variable}>
           {children}
           <Footer />
-      </body>
-    </html>
+        </body>
+      </html>
+    </ReduxProvider>
   );
 }

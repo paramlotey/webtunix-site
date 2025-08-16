@@ -22,6 +22,7 @@ import {
 } from "../ui/select";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
+import { useGetCategoryQuery } from "@/redux/apis/Category";
 
 const blogs = [
   {
@@ -111,7 +112,10 @@ const cardVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeInOut" } },
 };
+
 const PaginatedBlogs = () => {
+  const { data: allCategories } = useGetCategoryQuery(undefined);
+  console.log(allCategories);
   return (
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-5">
       <div className="flex-1">
@@ -183,7 +187,7 @@ const PaginatedBlogs = () => {
       </div>
 
       <aside className="w-full lg:w-1/4 sticky top-20 self-start">
-        <ScrollArea className="h-[80vh]">
+        <ScrollArea className="">
           <div className="bg-[#1B1B1B33] backdrop-blur-md rounded-2xl p-6 flex flex-col gap-6 border border-white/10 shadow-md">
             <h2 className="text-white text-lg font-semibold border-b border-white/10 pb-2 mb-3">
               Filter Blogs
@@ -205,13 +209,17 @@ const PaginatedBlogs = () => {
                 Category
               </label>
               <Select>
-                <SelectTrigger className="bg-[#00000033] text-white">
+                <SelectTrigger className="bg-[#00000033] text-white w-3/4">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="ai">AI</SelectItem>
-                  <SelectItem value="healthcare">Healthcare</SelectItem>
-                  <SelectItem value="ethics">Ethics</SelectItem>
+                <SelectContent className="h-80 overflow-auto">
+                  {allCategories?.categories.map(
+                    (item: { category_name: string }, index: string) => (
+                      <SelectItem value={item.category_name} key={index}>
+                        {item.category_name}
+                      </SelectItem>
+                    )
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -238,7 +246,7 @@ const PaginatedBlogs = () => {
                 {["AI", "Ethics", "Healthcare", "Trends"].map((tag) => (
                   <Button
                     key={tag}
-                    variant="outline"
+                    variant="default"
                     size="sm"
                     className="text-white border-white/20 hover:bg-[#e30613] hover:text-white transition-colors duration-200"
                   >

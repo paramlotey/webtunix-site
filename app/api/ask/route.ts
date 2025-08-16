@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
             temperature: 0.7,
             system: "Answer user questions helpfully and concisely.",
             messages: [{ role: "user", content: chat }],
+            tools:[{type:"web_search_20250305",name:"web_search",max_uses:5}]
           });
 
           for await (const event of response) {
