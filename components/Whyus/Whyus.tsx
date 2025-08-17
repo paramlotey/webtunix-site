@@ -5,7 +5,7 @@ import React from "react";
 const Whyus = () => {
   return (
     <section className="my-16 sm:my-20">
-      <div className="w-full mx-auto px-4 sm:px-6 md:px-12">
+      <div className="w-full mx-auto">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
           
           {/* Image */}

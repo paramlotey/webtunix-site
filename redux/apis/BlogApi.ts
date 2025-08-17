@@ -14,9 +14,8 @@ export const blogApi = createApi({
     baseUrl: "/",
     credentials: "include",
   }),
-  tagTypes: ["Blogs"], // helps with cache invalidation
+  tagTypes: ["Blogs"], 
   endpoints: (builder) => ({
-    // GET: Fetch all blogs with optional filters
     getAllBlogs: builder.query({
       query: ({
         page = 1,
@@ -32,17 +31,16 @@ export const blogApi = createApi({
         if (tag) searchParams.append("tag", tag);
         if (category) searchParams.append("category", category);
         if (typeof show === "boolean")
-          searchParams.append("show", show.toString()); // 🆕
+          searchParams.append("show", show.toString()); 
 
         return {
-          url: `api/blog?${searchParams.toString()}`,
+          url: `api/blogs?${searchParams.toString()}`,
           method: "GET",
         };
       },
       providesTags: ["Blogs"],
     }),
 
-    // GET: Single blog by ID
     getSingleBlog: builder.query({
       query: ({ id }) => ({
         url: `api/blog/${id}`,
@@ -51,7 +49,6 @@ export const blogApi = createApi({
       providesTags: (_result, _error, arg) => [{ type: "Blogs", id: arg.id }],
     }),
 
-    // POST: Create a new blog
     createBlog: builder.mutation({
       query: (newBlogData) => ({
         url: "api/blog",
@@ -61,7 +58,6 @@ export const blogApi = createApi({
       invalidatesTags: ["Blogs"],
     }),
 
-    // PUT: Update blog details by ID
     updateBlog: builder.mutation({
       query: ({ id, ...updateData }) => ({
         url: `api/blog?id=${id}`,
@@ -74,7 +70,6 @@ export const blogApi = createApi({
       ],
     }),
 
-    // PATCH: Toggle blog `show` status
     toggleBlogVisibility: builder.mutation({
       query: (id) => ({
         url: `api/blog?id=${id}`,

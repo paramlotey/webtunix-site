@@ -115,7 +115,7 @@ const Faq = () => {
   const rightColumnFaq = faq.slice(midpoint);
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-12">
+    <section className="py-16 sm:py-20">
       <div className="mx-auto">
         {/* Section Heading */}
         <h2 className="mx-auto text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl max-w-4xl my-8 sm:my-10 font-semibold leading-snug sm:leading-tight">

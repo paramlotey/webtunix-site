@@ -74,7 +74,7 @@ const Vision = () => {
         {cards.map((item, index) => (
           <motion.div
             key={index}
-            className="relative bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 min-h-[380px] overflow-hidden before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-0 before:bg-[linear-gradient(to_right,#e30613,#e3061583)] before:rounded-t-[999px] before:rounded-b-[16px] before:z-0 before:origin-bottom before:transition-all before:duration-700 before:ease-in-out hover:before:h-full hover:before:rounded-t-[16px] hover:before:rounded-b-[16px]"
+            className="relative group bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 min-h-[380px] overflow-hidden before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-0 before:bg-[linear-gradient(to_right,#e30613,#e3061583)] before:rounded-t-[999px] before:rounded-b-[16px] before:z-0 before:origin-bottom before:transition-all before:duration-700 before:ease-in-out hover:before:h-full hover:before:rounded-t-[16px] hover:before:rounded-b-[16px]"
             variants={fadeUpVariants}
           >
             <div className="relative z-10 flex flex-col justify-between flex-grow">
@@ -83,7 +83,7 @@ const Vision = () => {
                 <h4 className="text-lg sm:text-xl font-semibold mb-2">
                   {item.title}
                 </h4>
-                <p className="text-gray-500 text-sm sm:text-base">
+                <p className="text-gray-500 text-sm sm:text-base group-hover:text-white duration-300 transition-colors">
                   Custom AI solutions tailored to meet your unique business
                   needs, leveraging cutting-edge neural technologies.
                 </p>

@@ -172,6 +172,7 @@ const VideoServices = () => {
               speed={50}
               className="py-1.5 mb-3 sm:mb-4"
               pauseOnHover
+              style={{scrollbarWidth:"none"}}
             >
               {items.map((item, index) => (
                 <span
@@ -190,6 +191,7 @@ const VideoServices = () => {
               speed={30}
               direction="right"
               className="py-1.5"
+              style={{scrollbarWidth:"none"}}
             >
               {items.map((item, index) => (
                 <span

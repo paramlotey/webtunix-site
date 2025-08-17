@@ -36,7 +36,7 @@ const How = () => {
       className="bg-black text-white py-16 sm:py-20"
       aria-labelledby="how-we-work-title"
     >
-      <div className="w-full mx-auto px-4 sm:px-6 md:px-12">
+      <div className="w-full mx-auto">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
           
           {/* Left Section */}
