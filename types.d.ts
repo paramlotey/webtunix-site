@@ -13,3 +13,11 @@ export interface TitleProps {
   gradheading:string,
   description:string
 }
+
+// Type for API error response
+interface ApiError {
+  data?: {
+    message?: string;
+  };
+}
+

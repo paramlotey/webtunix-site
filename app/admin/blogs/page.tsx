@@ -7,7 +7,7 @@ import { Pencil, FilePlus } from "lucide-react";
 export default function AdminBlogsPage() {
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Blog Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-4 text-black">Blog Dashboard</h1>
       <p className="text-gray-600 mb-10">
         Manage, create, and update your blog content from a central dashboard.
       </p>

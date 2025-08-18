@@ -17,10 +17,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useAdminLogoutMutation } from "@/redux/apis/AdminApi";
-import { ChevronUp, Menu, User2 } from "lucide-react";
+import { ArrowLeft, ChevronUp, Menu, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
 const SidebarComp = ({ children }: { children: React.ReactNode }) => {
   const [logout] = useAdminLogoutMutation();
   const router = useRouter();
@@ -69,11 +70,15 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
           </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
-      <main className="flex-1 p-4 bg-white/50">
+      <main className="flex-1 p-4 bg-white">
         <div className="mb-4">
-          <SidebarTrigger className="p-2 border rounded-md bg-gray-100 fixed">
-            <Menu className="h-4 w-4" />
-          </SidebarTrigger>
+          <SidebarTrigger className="p-2 border rounded-md bg-gray-100 text-black hover:bg-gray-300 fixed top-1/2"/>
+          <Button
+            onClick={() => router.back()}
+            className="p-2 border rounded-md bg-gray-100 text-black hover:bg-gray-300 fixed top-1"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
           {children}
         </div>
       </main>

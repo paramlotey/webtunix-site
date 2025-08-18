@@ -11,23 +11,8 @@ import {
   useAdminLoginMutation,
   useAdminSignupMutation,
 } from "@/redux/apis/AdminApi";
+import { isApiError } from "@/components/Common/ApiError";
 
-// Type for API error response
-interface ApiError {
-  data?: {
-    message?: string;
-  };
-}
-
-// Type guard to check if error has the expected structure
-const isApiError = (error: unknown): error is ApiError => {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "data" in error &&
-    typeof (error as ApiError).data === "object"
-  );
-};
 
 const AdminSignup = () => {
   const router = useRouter();

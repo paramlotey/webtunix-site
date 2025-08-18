@@ -1,5 +1,4 @@
 import React from "react";
-import PaginatedBlogs from "@/components/Blogs/PaginatedBlogs";
 import Navbar from "@/components/Navbar/Navbar";
 import HeroBackground from "@/components/Hero/HeroBackground";
 import Title from "@/components/Common/Title";
@@ -11,7 +10,101 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "lucide-react";
 import Link from "next/link";
-const Blogs = () => {
+import { PrismaClient } from "@/lib/generated/prisma";
+import PaginatedBlogsClient from "@/components/Blogs/PaginatedBlogs";
+import { unstable_noStore as noStore } from "next/cache";
+
+const prisma = new PrismaClient();
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+// Updated PageProps for Next.js 14+
+type PageProps = {
+  searchParams?: Promise<{
+    page?: string;
+    limit?: string;
+    category?: string;
+    search?: string;
+    sort?: "latest" | "oldest" | "popular";
+  }>;
+};
+
+const Blogs = async ({ searchParams }: PageProps) => {
+  noStore();
+
+  // Await the searchParams promise
+  const params = (await searchParams) ?? {};
+  const page = Math.max(1, parseInt(params.page || "1", 10));
+  const limitRaw = Math.max(1, parseInt(params.limit || "9", 10));
+  const limit = Math.min(100, limitRaw);
+
+  const categoryParam = (params.category || "").trim();
+  const categories = categoryParam
+    ? categoryParam
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean)
+    : [];
+
+  const search = (params.search || "").trim();
+  const sort = params.sort || "latest";
+
+  const where: NonNullable<
+    Parameters<typeof prisma.blogs.findMany>[0]
+  >["where"] = {};
+
+  if (categories.length) {
+    where.category =
+      categories.length === 1
+        ? { has: categories[0] }
+        : { hasSome: categories };
+  }
+
+  if (search) {
+    const contains = { contains: search, mode: "insensitive" as const };
+    where.OR = [{ title: contains }, { description: contains }, { content: contains }];
+  }
+
+  // orderBy
+  const orderBy:
+    | NonNullable<Parameters<typeof prisma.blogs.findMany>[0]>["orderBy"]
+    | undefined = (() => {
+      switch (sort) {
+        case "oldest":
+          return { createdAt: "asc" };
+        case "popular":
+          return { id: "desc" };
+        case "latest":
+        default:
+          return { createdAt: "desc" };
+      }
+    })();
+
+  const [data, total, allCategories] = await Promise.all([
+    prisma.blogs.findMany({
+      where,
+      orderBy,
+      skip: (page - 1) * limit,
+      take: limit,
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        slug: true,
+        createdAt: true,
+        category: true,
+      },
+    }),
+    prisma.blogs.count({ where }),
+    prisma.category.findMany({
+      select: { category_name: true },
+      orderBy: { category_name: "asc" },
+    }),
+  ]);
+
+  const totalPages = Math.max(1, Math.ceil(total / limit));
+
   return (
     <>
       <div className="relative w-full overflow-hidden min-h-[50vh] sm:min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] xl:min-h-[75vh]">
@@ -47,8 +140,18 @@ const Blogs = () => {
           </div>
         </div>
       </div>
+
       <div className="mx-4 sm:mx-8 md:mx-20 lg:mx-40 xl:mx-56 mb-20">
-        <PaginatedBlogs />
+        <PaginatedBlogsClient
+          key={JSON.stringify({ categories, search, sort, page, limit })}
+          initialBlogs={data}
+          total={total}
+          page={page}
+          limit={limit}
+          totalPages={totalPages}
+          current={{ category: categories, search, sort }}
+          categories={allCategories.map((c) => c.category_name)}
+        />
       </div>
     </>
   );

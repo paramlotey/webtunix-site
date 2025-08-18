@@ -1,9 +1,25 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
-    domains: ["randomuser.me"], // 👈 add this line
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "randomuser.me",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
+   eslint: {
+    ignoreDuringBuilds: false,
+    dirs: ['src', 'pages', 'components', 'app','redux'], // Only lint these specific directories
   },
 };
 

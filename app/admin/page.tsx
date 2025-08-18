@@ -7,7 +7,7 @@ const AdminHome = () => {
       <div className="space-y-4">
         <div className="flex justify-center items-center">
           <div>
-            <h1 className="text-2xl font-bold text-center">Admin Dashboard</h1>
+            <h1 className="text-2xl font-bold text-center text-black">Admin Dashboard</h1>
             <p className="text-gray-600">
               Welcome to your admin panel. Use the menu button above to toggle
               the sidebar.

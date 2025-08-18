@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import "../globals.css";
-import ReduxProvider from "@/components/Providers/Reduxprovider";
-import SidebarComp from "@/components/Sidebar/Sidebar";
 import { Manrope } from "next/font/google";
-
+import "../../globals.css";
 
 const manRope = Manrope({
   variable: "--font-man-rope",
@@ -21,12 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${manRope.variable}`}>
-        <ReduxProvider>
-          <SidebarComp>{children}</SidebarComp>
-        </ReduxProvider>
-      </body>
-    </html>
+    <section className={manRope.variable}>
+      <div>{children}</div>
+    </section>
   );
 }

@@ -63,15 +63,13 @@ export default function QuillEditor({ value, onChange }: QuillEditorProps) {
     }
   }, [onChange]);
 
-  useEffect(() => {
-    const editor = quillRef.current;
-    if (editor && value) {
-      const currentHTML = editor.root.innerHTML;
-      if (currentHTML !== value) {
-        editor.root.innerHTML = value;
-      }
-    }
-  }, [value]);
+ useEffect(() => {
+  const editor = quillRef.current;
+  if (editor && value && editor.root.innerHTML !== value) {
+    editor.clipboard.dangerouslyPasteHTML(value);
+  }
+}, [value]);
+
 
   return <div ref={editorRef} style={{ height: "600px" }} />;
 }

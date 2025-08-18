@@ -1,9 +1,12 @@
+"use client"
+import { useParams } from 'next/navigation'
 import React from 'react'
 
-const page = () => {
+const SingleBlog = () => {
+  const {slug} = useParams()
   return (
-    <div>page</div>
+    <div>{slug}</div>
   )
 }
 
-export default page
+export default SingleBlog

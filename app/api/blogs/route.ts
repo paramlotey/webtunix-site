@@ -169,7 +169,7 @@ export const POST = async (req: NextRequest) => {
       }
       
       const validTags = body.tags
-        .filter((tag: any) => typeof tag === "string" && tag.trim())
+        .filter((tag: string) => typeof tag === "string" && tag.trim())
         .map((tag: string) => tag.trim().toLowerCase());
       
       if (validTags.length > 0) {
@@ -190,7 +190,7 @@ export const POST = async (req: NextRequest) => {
       }
       
       const validCategories = body.category
-        .filter((cat: any) => typeof cat === "string" && cat.trim())
+        .filter((cat: string) => typeof cat === "string" && cat.trim())
         .map((cat: string) => cat.trim().toLowerCase());
       
       if (validCategories.length > 0) {
@@ -200,7 +200,7 @@ export const POST = async (req: NextRequest) => {
     if (body.images) {
       
       const images = body.images
-        .filter((cat: any) => typeof cat === "string" && cat.trim())
+        .filter((cat: string) => typeof cat === "string" && cat.trim())
         .map((cat: string) => cat.trim().toLowerCase());
       
       if (images.length > 0) {

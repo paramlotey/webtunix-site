@@ -14,7 +14,7 @@ export const blogApi = createApi({
     baseUrl: "/",
     credentials: "include",
   }),
-  tagTypes: ["Blogs"], 
+  tagTypes: ["Blogs"],
   endpoints: (builder) => ({
     getAllBlogs: builder.query({
       query: ({
@@ -31,7 +31,7 @@ export const blogApi = createApi({
         if (tag) searchParams.append("tag", tag);
         if (category) searchParams.append("category", category);
         if (typeof show === "boolean")
-          searchParams.append("show", show.toString()); 
+          searchParams.append("show", show.toString());
 
         return {
           url: `api/blogs?${searchParams.toString()}`,
@@ -42,8 +42,8 @@ export const blogApi = createApi({
     }),
 
     getSingleBlog: builder.query({
-      query: ({ id }) => ({
-        url: `api/blog/${id}`,
+      query: ({ slug }) => ({
+        url: `api/blogs/${slug}`,
         method: "GET",
       }),
       providesTags: (_result, _error, arg) => [{ type: "Blogs", id: arg.id }],
@@ -51,7 +51,7 @@ export const blogApi = createApi({
 
     createBlog: builder.mutation({
       query: (newBlogData) => ({
-        url: "api/blog",
+        url: "api/blogs",
         method: "POST",
         body: newBlogData,
       }),
@@ -59,26 +59,27 @@ export const blogApi = createApi({
     }),
 
     updateBlog: builder.mutation({
-      query: ({ id, ...updateData }) => ({
-        url: `api/blog?id=${id}`,
+      query: ({ slug, ...updateData }) => ({
+        url: `api/blogs/${slug}`,
         method: "PUT",
         body: updateData,
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        "Blogs",
-        { type: "Blogs", id: arg.id },
-      ],
+      invalidatesTags: ["Blogs"],
     }),
 
     toggleBlogVisibility: builder.mutation({
-      query: (id) => ({
-        url: `api/blog?id=${id}`,
+      query: ({ slug }) => ({
+        url: `api/blogs/${slug}`,
         method: "PATCH",
       }),
-      invalidatesTags: (_result, _error, id) => [
-        "Blogs",
-        { type: "Blogs", id },
-      ],
+      invalidatesTags: ["Blogs"],
+    }),
+    deleteBlog: builder.mutation<void, { slug: string }>({
+      query: ({ slug }) => ({
+        url: `api/blogs/${slug}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Blogs"],
     }),
   }),
 });
@@ -89,4 +90,5 @@ export const {
   useGetSingleBlogQuery,
   useToggleBlogVisibilityMutation,
   useUpdateBlogMutation,
+  useDeleteBlogMutation,
 } = blogApi;

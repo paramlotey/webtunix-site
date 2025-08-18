@@ -1,5 +1,6 @@
 "use client";
 
+import { isApiError } from "@/components/Common/ApiError";
 import UploadWidget from "@/components/Extra/CloudinaryWidget";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -35,22 +36,7 @@ const QuillEditor = dynamic(() => import("@/components/Extra/QuillEditor"), {
   ssr: false,
 });
 
-// Type for API error response
-interface ApiError {
-  data?: {
-    message?: string;
-  };
-}
 
-// Type guard to check if error has the expected structure
-const isApiError = (error: unknown): error is ApiError => {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "data" in error &&
-    typeof (error as ApiError).data === "object"
-  );
-};
 
 const AdminBlogPage = () => {
   const [category_name, setCategory_name] = useState<string>("");
@@ -157,7 +143,7 @@ const AdminBlogPage = () => {
             <DialogTrigger asChild>
               <Button variant="outline">Add Category</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] text-black h-full max-h-3/4 overflow-auto" style={{scrollbarWidth:"none"}}>
               <form onSubmit={handleAddCategory}>
                 <DialogHeader className="my-5">
                   <DialogTitle>Add New Category</DialogTitle>
@@ -173,6 +159,12 @@ const AdminBlogPage = () => {
                       onChange={(e) => setCategory_name(e.target.value)}
                     />
                   </div>
+                </div>
+                <div className="my-5 space-x-4">
+                   <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button type="submit">Add Category</Button>
                 </div>
                 <DialogHeader className="my-5">
                   <DialogTitle>All Categories</DialogTitle>
@@ -197,7 +189,7 @@ const AdminBlogPage = () => {
                               <td className="px-4 py-2 border text-center">
                                 {index + 1}
                               </td>
-                              <td className="px-4 py-2 border text-center">
+                              <td className="px-4 py-2 border text-center capitalize">
                                 {category.category_name}
                               </td>
                               <td className="px-4 py-2 border text-center">
@@ -218,10 +210,7 @@ const AdminBlogPage = () => {
                 </div>
 
                 <DialogFooter className="my-5">
-                  <DialogClose asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </DialogClose>
-                  <Button type="submit">Add Category</Button>
+                 
                 </DialogFooter>
               </form>
             </DialogContent>

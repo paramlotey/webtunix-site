@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "public"."User";
-
 -- CreateTable
 CREATE TABLE "public"."Blogs" (
     "id" SERIAL NOT NULL,
@@ -20,6 +11,8 @@ CREATE TABLE "public"."Blogs" (
     "show" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "slug" TEXT NOT NULL,
+    "authorName" TEXT NOT NULL,
 
     CONSTRAINT "Blogs_pkey" PRIMARY KEY ("id")
 );
@@ -48,6 +41,9 @@ CREATE TABLE "public"."Admin" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Blogs_title_key" ON "public"."Blogs"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Blogs_slug_key" ON "public"."Blogs"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Admin_email_key" ON "public"."Admin"("email");

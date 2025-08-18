@@ -8,9 +8,18 @@ import OurServices from "@/components/Services/OurServices";
 import VideoServices from "@/components/Services/VideoServices";
 import Vision from "@/components/Vision/Vision";
 import Whyus from "@/components/Whyus/Whyus";
+import { PrismaClient } from "@/lib/generated/prisma";
 import React from "react";
 
-const Home = () => {
+export default async function Home(){
+
+  const prisma = new PrismaClient()
+
+  const blogs = await prisma.blogs.findMany({
+    take:3,
+    orderBy:{createdAt:"desc"}
+  })
+
   return (
     <>
       <Hero />
@@ -23,10 +32,9 @@ const Home = () => {
         <Whyus />
         <How />
         <Faq />
-        <LandingPageBlogs />
+        <LandingPageBlogs blogs={blogs}/>
       </div>
     </>
   );
 };
 
-export default Home;
