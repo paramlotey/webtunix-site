@@ -21,3 +21,12 @@ interface ApiError {
   };
 }
 
+type PageProps = {
+  searchParams?: Promise<{
+    page?: string;
+    limit?: string;
+    category?: string;
+    search?: string;
+    sort?: "latest" | "oldest" | "popular";
+  }>;
+};

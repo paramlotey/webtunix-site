@@ -39,7 +39,7 @@ const AdminContact = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Contact Submissions</h1>
+      <h1 className="text-3xl font-bold mb-6 text-black">Enquires</h1>
 
       {contacts.length === 0 ? (
         <p>No contact submissions found.</p>
@@ -47,23 +47,21 @@ const AdminContact = () => {
         <div className="border rounded-md shadow-sm">
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="bg-gray-200">
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Phone</TableHead>
-                <TableHead>Method</TableHead>
                 <TableHead>Message</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="text-black">
               {contacts.map(
                 (contact: {
                   first_name: string;
                   last_name: string;
                   email: string;
                   phone: string;
-                  contact_method: string;
                   message: string;
                   id: string;
                 }) => (
@@ -73,9 +71,6 @@ const AdminContact = () => {
                     </TableCell>
                     <TableCell>{contact.email}</TableCell>
                     <TableCell>{contact.phone}</TableCell>
-                    <TableCell className="capitalize">
-                      {contact.contact_method}
-                    </TableCell>
                     <TableCell className="max-w-xs truncate">
                       {contact.message}
                     </TableCell>

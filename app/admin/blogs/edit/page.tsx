@@ -78,8 +78,11 @@ const BlogEditPage = () => {
   const handleShow = async (slug: string) => {
     try {
       await toggleVisibilty({ slug }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error?.message);
+        return;
+      }
     }
   };
 
@@ -164,7 +167,9 @@ const BlogEditPage = () => {
                               Published
                             </Badge>
                           ) : (
-                            <Badge variant="secondary" className="w-28">Unpublished</Badge>
+                            <Badge variant="secondary" className="w-28">
+                              Unpublished
+                            </Badge>
                           )}
                         </TableCell>
 

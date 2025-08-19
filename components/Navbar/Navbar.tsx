@@ -14,12 +14,12 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
+    { href: "/", label: "Home" },
     { href: "#about", label: "About Us" },
     { href: "#services", label: "Services" },
-    { href: "#blog", label: "Blog" },
+    { href: "/blogs", label: "Blogs" },
     { href: "#pages", label: "Pages" },
-    { href: "#contact", label: "Contact Us" },
+    { href: "/contact-us", label: "Contact Us" },
   ];
 
   return (
@@ -42,19 +42,19 @@ const Navbar = () => {
         <ul className="hidden md:flex items-center space-x-8 text-base font-medium text-white bg-white/5 border border-white/10 backdrop-blur-md rounded-full px-8 py-2">
           {navLinks.map(({ href, label }) => (
             <li key={href}>
-              <HoverCard openDelay={200}>
-                <HoverCardTrigger asChild>
+              {/* <HoverCard openDelay={200}>
+                <HoverCardTrigger asChild> */}
                   <Link
                     href={href}
                     className="hover:text-[#e30613] transition-colors duration-200"
                   >
                     {label}
                   </Link>
-                </HoverCardTrigger>
+                {/* </HoverCardTrigger>
                 <HoverCardContent>
                   The React Framework – created and maintained by @vercel.
                 </HoverCardContent>
-              </HoverCard>
+              </HoverCard> */}
             </li>
           ))}
         </ul>

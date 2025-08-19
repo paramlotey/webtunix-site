@@ -13,27 +13,29 @@ import Link from "next/link";
 import { PrismaClient } from "@/lib/generated/prisma";
 import PaginatedBlogsClient from "@/components/Blogs/PaginatedBlogs";
 import { unstable_noStore as noStore } from "next/cache";
+import { Metadata } from "next";
+import { PageProps } from "@/types";
 
 const prisma = new PrismaClient();
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-// Updated PageProps for Next.js 14+
-type PageProps = {
-  searchParams?: Promise<{
-    page?: string;
-    limit?: string;
-    category?: string;
-    search?: string;
-    sort?: "latest" | "oldest" | "popular";
-  }>;
-};
+export async function generateMetadata(): Promise<Metadata> {
+
+  const seoInfo = await prisma.sEO.findUnique({
+    where:{route:"/blogs"}
+  })
+  
+  return {
+    title: seoInfo?.title,
+    description: seoInfo?.description,
+    keywords: seoInfo?.keywords
+  };
+}
 
 const Blogs = async ({ searchParams }: PageProps) => {
   noStore();
-
-  // Await the searchParams promise
   const params = (await searchParams) ?? {};
   const page = Math.max(1, parseInt(params.page || "1", 10));
   const limitRaw = Math.max(1, parseInt(params.limit || "9", 10));
@@ -66,7 +68,6 @@ const Blogs = async ({ searchParams }: PageProps) => {
     where.OR = [{ title: contains }, { description: contains }, { content: contains }];
   }
 
-  // orderBy
   const orderBy:
     | NonNullable<Parameters<typeof prisma.blogs.findMany>[0]>["orderBy"]
     | undefined = (() => {

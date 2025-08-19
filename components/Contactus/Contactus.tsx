@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { useCreateEnquiryMutation } from "@/redux/apis/ContactApi";
+import { toast } from "sonner";
 
 interface FormData {
   first_name: string;
@@ -29,7 +30,6 @@ const ContactusPage = () => {
     e.preventDefault();
     try {
       const response = await createEnquiry(formData).unwrap();
-      console.log(response)
       if (response.success) {
         setFormData({
           first_name: "",
@@ -38,6 +38,7 @@ const ContactusPage = () => {
           email: "",
           message: "",
         });
+        toast.success(response.message)
       }
     } catch (error) {
       console.error(error);

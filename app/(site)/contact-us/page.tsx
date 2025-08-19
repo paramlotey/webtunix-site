@@ -8,9 +8,26 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { PrismaClient } from "@/lib/generated/prisma";
 import { SlashIcon } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+const prisma = new PrismaClient()
+
+
+export async function generateMetadata(): Promise<Metadata> {
+
+  const seoInfo = await prisma.sEO.findUnique({
+    where:{route:"/contact-us"}
+  })
+  
+  return {
+    title: seoInfo?.title,
+    description: seoInfo?.description,
+    keywords: seoInfo?.keywords
+  };
+}
 
 const ContactUs = () => {
   return (

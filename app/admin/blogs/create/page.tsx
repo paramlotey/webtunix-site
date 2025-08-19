@@ -59,7 +59,6 @@ const AdminBlogPage = () => {
   const [createBlog, { isLoading }] = useCreateBlogMutation();
   const [createCategory, { isLoading: isCreatingCategory }] =
     useCreateCategoryMutation();
-  console.log(isCreatingCategory);
   const {
     data: allCategory,
     isLoading: categoryLoading,
