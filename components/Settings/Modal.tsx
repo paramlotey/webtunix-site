@@ -61,7 +61,7 @@ export function RouteSettings({ route }: { route: string }) {
           <DialogTitle>Meta Settings</DialogTitle>
           <DialogDescription>
             Configure SEO-related metadata for your route{" "}
-            <span className="font-extrabold text-black">"{route}"</span>.
+            <span className="font-extrabold text-black">{`"${route}"`}</span>.
             These fields will be used in search engines and social previews.
           </DialogDescription>
         </DialogHeader>

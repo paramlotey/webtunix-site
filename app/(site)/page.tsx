@@ -8,11 +8,11 @@ import OurServices from "@/components/Services/OurServices";
 import VideoServices from "@/components/Services/VideoServices";
 import Vision from "@/components/Vision/Vision";
 import Whyus from "@/components/Whyus/Whyus";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import React from "react";
-const prisma = new PrismaClient()
 
+export const revalidate = 1800
 
 export async function generateMetadata(): Promise<Metadata> {
 

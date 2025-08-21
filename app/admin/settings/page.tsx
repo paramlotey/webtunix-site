@@ -18,15 +18,15 @@ interface RoutesResponse {
   total: number;
   expanded: boolean;
 }
+type FilterType = "all" | "static" | "dynamic" | "catch-all";
 
 export default function SEOSettings() {
   const [routes, setRoutes] = useState<RouteInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandDynamic, setExpandDynamic] = useState(false);
-  const [filter, setFilter] = useState<
-    "all" | "static" | "dynamic" | "catch-all"
-  >("all");
+  const [filter, setFilter] = useState<FilterType>("all");
+
   const [searchTerm, setSearchTerm] = useState("");
   const [total, setTotal] = useState(0);
 
@@ -161,7 +161,7 @@ export default function SEOSettings() {
                 </label>
                 <select
                   value={filter}
-                  onChange={(e) => setFilter(e.target.value as any)}
+                  onChange={(e) => setFilter(e.target.value as FilterType)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 >
                   <option value="all">All Types</option>

@@ -27,7 +27,7 @@ const fadeUpVariants: Variants = {
 
 const OurServices = () => {
   return (
-    <section className="my-10 sm:my-16">
+    <section className="my-10 sm:my-16" id="ourservices">
       {/* Section Tagline */}
       <motion.div
         className="flex justify-center"

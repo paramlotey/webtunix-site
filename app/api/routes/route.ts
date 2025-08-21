@@ -101,7 +101,7 @@ const DYNAMIC_ROUTE_CONFIG = [
 
 async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
   const expandedRoutes: RouteInfo[] = [];
-  const baseUrl = process.env.Site_Url
+  const baseUrl = process.env.Site_Url || "http://localhost:3000"
 
   for (const route of routes) {
     if (route.type === 'dynamic') {

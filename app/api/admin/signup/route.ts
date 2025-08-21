@@ -1,9 +1,8 @@
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { sendMail } from "@/utils/nodemailer";
 
-const Prisma = new PrismaClient();
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -11,7 +10,7 @@ export const POST = async (req: NextRequest) => {
     const { name, email, password } = body;
 
     // Check if admin already exists
-    const existing_admin = await Prisma.admin.findUnique({
+    const existing_admin = await prisma.admin.findUnique({
       where: { email },
     });
 
@@ -26,7 +25,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     // Create new admin
-    const new_admin = await Prisma.admin.create({
+    const new_admin = await prisma.admin.create({
       data: {
         name,
         email,
@@ -69,7 +68,7 @@ export const PATCH = async (req: NextRequest) => {
       );
     }
 
-    const existing_admin = await Prisma.admin.findUnique({
+    const existing_admin = await prisma.admin.findUnique({
       where: { email },
     });
 
@@ -116,7 +115,7 @@ export const PATCH = async (req: NextRequest) => {
         </html>`,
     });
 
-    await Prisma.admin.update({
+    await prisma.admin.update({
       where: { email },
       data: { resetOtp: reset_otp, otpExpiry: expiry },
     });
@@ -154,7 +153,7 @@ export const PUT = async (req: NextRequest) => {
       );
     }
 
-    const admin = await Prisma.admin.findUnique({
+    const admin = await prisma.admin.findUnique({
       where: { email },
     });
 
@@ -179,7 +178,7 @@ export const PUT = async (req: NextRequest) => {
 
     const hashedPassword = await bcrypt.hash(new_password, 10);
 
-    await Prisma.admin.update({
+    await prisma.admin.update({
       where: { email },
       data: {
         password: hashedPassword,

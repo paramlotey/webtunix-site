@@ -1,4 +1,3 @@
-// Updated Hero.tsx - Main component with enhanced search functionality
 "use client";
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
@@ -12,10 +11,14 @@ import { ChatMessage } from "@/types";
 import Title from "../Common/Title";
 
 const Hero: React.FC = () => {
+  const [chat, setChat] = useState<string>(""); 
+  const [modalChat, setModalChat] = useState<string>(""); 
+
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
-  const [chat, setChat] = useState<string>("");
+  const [chatInput, setChatInput] = useState<boolean>(false);
   const [chatResponse, setChatResponse] = useState<ChatMessage[]>([]);
   const [selectOpen, setSelectOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     document.body.style.overflow = isChatOpen ? "hidden" : "";
@@ -24,7 +27,7 @@ const Hero: React.FC = () => {
     };
   }, [isChatOpen]);
 
-  const handleChatChange = (value: string): void => {
+  const handleHomeChatChange = (value: string): void => {
     setChat(value);
     setSelectOpen(value.trim().length > 0);
   };
@@ -33,18 +36,21 @@ const Hero: React.FC = () => {
     setIsChatOpen(false);
     setChatResponse([]);
     setChat("");
+    setModalChat(""); 
+    setLoading(false);
   };
 
   const initiateSearch = async (value?: string): Promise<void> => {
-    const input = value ?? chat;
-    if (!input.trim()) return;
+    const input = (value ?? (isChatOpen ? modalChat : chat)).trim();
+    if (!input) return;
 
     setIsChatOpen(true);
     setChat("");
+    setModalChat("");
     setSelectOpen(false);
 
-    // Add user message
     setChatResponse((prev) => [...prev, { sender: "user", text: input }]);
+    setLoading(true); 
 
     try {
       const response = await fetch("/api/ask", {
@@ -70,32 +76,49 @@ const Hero: React.FC = () => {
         const lines = chunk.split("\n\n").filter(Boolean);
 
         for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const data = line.slice(6);
-            if (data === "[DONE]") return;
-            if (data === "[ERROR]") {
-              setChatResponse((prev) => [
-                ...prev,
-                {
-                  sender: "ai",
-                  text: "Error occurred while processing your request.",
-                },
-              ]);
-              return;
-            }
-            aiMessage += data;
+          if (!line.startsWith("data: ")) continue;
+
+          const data = line.slice(6);
+
+          if (data === "[DONE]") {
             setChatResponse((prev) => {
               const last = prev[prev.length - 1];
-              if (last?.sender === "ai") {
-                return [
-                  ...prev.slice(0, -1),
-                  { sender: "ai", text: aiMessage },
-                ];
-              } else {
-                return [...prev, { sender: "ai", text: aiMessage }];
+              if (last?.sender === "bot") {
+                return [...prev.slice(0, -1), { ...last, streaming: false }];
               }
+              return prev;
             });
+            return;
           }
+
+          if (data === "[ERROR]") {
+            setChatResponse((prev) => [
+              ...prev,
+              {
+                sender: "bot",
+                text: "Error occurred while processing your request.",
+                streaming: false,
+              },
+            ]);
+            setLoading(false);
+            return;
+          }
+
+          if (!aiMessage) setLoading(false);
+          aiMessage += data + " ";
+          setChatResponse((prev) => {
+            const last = prev[prev.length - 1];
+            if (last?.sender === "bot") {
+              return [
+                ...prev.slice(0, -1),
+                { sender: "bot", text: aiMessage, streaming: true },
+              ];
+            }
+            return [
+              ...prev,
+              { sender: "bot", text: aiMessage, streaming: true },
+            ];
+          });
         }
       }
     } catch (error) {
@@ -103,10 +126,12 @@ const Hero: React.FC = () => {
       setChatResponse((prev) => [
         ...prev,
         {
-          sender: "ai",
+          sender: "bot",
           text: "Sorry, there was an error processing your request. Please try again.",
+          streaming: false,
         },
       ]);
+      setLoading(false);
     }
   };
 
@@ -122,17 +147,21 @@ const Hero: React.FC = () => {
             <Title
               heading="Designing smarter tomorrows with"
               gradheading="AI today!"
-              description="Have tech questions? Our AI answer engine can help you find solutions faster than ever before.
-"
+              description="Have tech questions? Our AI answer engine can help you find solutions faster than ever before."
             />
-            <HeroButtons onAskNowClick={() => setIsChatOpen(true)} />
-            <SearchBox
-              chat={chat}
-              selectOpen={selectOpen}
-              onChatChange={handleChatChange}
-              onSubmit={initiateSearch}
-            />
-            <SuggestionCards onSuggestionClick={initiateSearch} />
+            <HeroButtons onAskNowClick={() => setChatInput(true)} />
+
+            {chatInput && (
+              <div>
+                <SearchBox
+                  chat={chat}
+                  selectOpen={selectOpen}
+                  onChatChange={handleHomeChatChange}
+                  onSubmit={initiateSearch}
+                />
+                <SuggestionCards onSuggestionClick={initiateSearch} />
+              </div>
+            )}
           </div>
         </div>
 
@@ -141,11 +170,12 @@ const Hero: React.FC = () => {
 
       <ChatModal
         isOpen={isChatOpen}
-        chat={chat}
+        chat={modalChat}
         chatResponse={chatResponse}
         onClose={handleChatClose}
-        onChatChange={setChat}
+        onChatChange={setModalChat}
         onSubmit={initiateSearch}
+        loading={loading}
       />
     </>
   );

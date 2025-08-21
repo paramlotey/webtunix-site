@@ -1,3 +1,4 @@
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -19,16 +20,24 @@ model Blogs {
   category     String[]
   show         Boolean  @default(false)
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt  // Changed from @default(now()) to @updatedAt
   slug         String   @unique
   authorName   String
+
+  // Add these indexes for better performance
+  @@index([slug])
+  @@index([show])
+  @@index([createdAt])
+  @@index([show, createdAt])
 }
 
 model Category {
   id            Int      @id @default(autoincrement())
-  category_name String
+  category_name String   @unique  // Added @unique to prevent duplicates
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt  // Changed from @default(now()) to @updatedAt
+
+  @@index([category_name])
 }
 
 model Admin {
@@ -40,6 +49,8 @@ model Admin {
   otpExpiry     DateTime?
   access_token  String?
   refresh_token String?
+
+  @@index([email])
 }
 
 model Contact {
@@ -50,7 +61,10 @@ model Contact {
   email      String   @unique
   message    String
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt  // Changed from @default(now()) to @updatedAt
+
+  @@index([email])
+  @@index([createdAt])
 }
 
 model SEO {
@@ -61,4 +75,6 @@ model SEO {
   keywords    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([route])
 }

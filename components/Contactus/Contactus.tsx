@@ -84,7 +84,7 @@ const ContactusPage = () => {
       </div>
 
       <h2 className="text-center mx-auto text-2xl sm:text-3xl md:text-4xl lg:text-5xl max-w-3xl mb-10 sm:mb-14 font-semibold leading-snug sm:leading-tight">
-        Let's Collaborate and Create Powerful{" "}
+        {`Let's`} Collaborate and Create Powerful{" "}
         <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent cursor-default transition duration-500 hover:from-[#e3061583] hover:to-[#e30613]">
           AI Solutions
         </span>

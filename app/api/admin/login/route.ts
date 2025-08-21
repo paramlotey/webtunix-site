@@ -1,9 +1,8 @@
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const prisma = new PrismaClient();
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -64,6 +63,7 @@ export const POST = async (req: NextRequest) => {
 
     return response;
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { message: "Server error", success: false },
       { status: 500 }

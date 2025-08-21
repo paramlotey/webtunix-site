@@ -1,7 +1,6 @@
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
 
 type BlogsWhereInput = NonNullable<
   Parameters<typeof prisma.blogs.findMany>[0]

@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "lucide-react";
 import Link from "next/link";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import PaginatedBlogsClient from "@/components/Blogs/PaginatedBlogs";
 import { unstable_noStore as noStore } from "next/cache";
 import { Metadata } from "next";
 import { PageProps } from "@/types";
 
-const prisma = new PrismaClient();
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;

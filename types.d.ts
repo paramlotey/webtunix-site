@@ -1,7 +1,8 @@
 // types.ts
 export interface ChatMessage {
-  sender: "user" | "ai";
+  sender: "user" | "bot";
   text: string;
+  streaming?: boolean;
 }
 
 export interface SearchSuggestion {
@@ -9,9 +10,9 @@ export interface SearchSuggestion {
 }
 
 export interface TitleProps {
-  heading:string,
-  gradheading:string,
-  description:string
+  heading: string;
+  gradheading: string;
+  description: string;
 }
 
 // Type for API error response

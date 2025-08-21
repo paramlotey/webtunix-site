@@ -1,8 +1,7 @@
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { sendMail } from "@/utils/nodemailer";
 import { NextRequest, NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
 
 export const GET = async () => {
   try {

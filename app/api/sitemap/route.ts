@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma"; // ✅ use singleton
 
-const prisma = new PrismaClient()
 
-const SITE_URL = process.env.Site_Url; // your domain
+const SITE_URL = process.env.Site_Url || "http://localhost:3000"; // your domain
 
 export async function GET() {
   try {

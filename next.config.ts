@@ -10,17 +10,20 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: false,
-    dirs: ['src', 'pages', 'components', 'app','redux'],
+    dirs: ["src", "pages", "components", "app", "redux"],
   },
   async rewrites() {
     return [
       {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
+        source: "/sitemap.xml",
+        destination: "/api/sitemap",
       },
-    ]
+      {
+        source: "/robots.txt",
+        destination: "/api/robots",
+      },
+    ];
   },
 };
 
 export default nextConfig;
-
