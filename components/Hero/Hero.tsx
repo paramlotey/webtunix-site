@@ -11,8 +11,8 @@ import { ChatMessage } from "@/types";
 import Title from "../Common/Title";
 
 const Hero: React.FC = () => {
-  const [chat, setChat] = useState<string>(""); 
-  const [modalChat, setModalChat] = useState<string>(""); 
+  const [chat, setChat] = useState<string>("");
+  const [modalChat, setModalChat] = useState<string>("");
 
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
   const [chatInput, setChatInput] = useState<boolean>(false);
@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
     setIsChatOpen(false);
     setChatResponse([]);
     setChat("");
-    setModalChat(""); 
+    setModalChat("");
     setLoading(false);
   };
 
@@ -50,7 +50,7 @@ const Hero: React.FC = () => {
     setSelectOpen(false);
 
     setChatResponse((prev) => [...prev, { sender: "user", text: input }]);
-    setLoading(true); 
+    setLoading(true);
 
     try {
       const response = await fetch("/api/ask", {
@@ -143,25 +143,31 @@ const Hero: React.FC = () => {
 
         {/* Main Content */}
         <div className="relative z-10 flex flex-col items-center justify-center mt-20 px-4 py-12 sm:py-16 md:py-20 lg:py-24">
-          <div className="w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl text-center">
-            <Title
-              heading="Designing smarter tomorrows with"
-              gradheading="AI today!"
-              description="Have tech questions? Our AI answer engine can help you find solutions faster than ever before."
-            />
-            <HeroButtons onAskNowClick={() => setChatInput(true)} />
-
-            {chatInput && (
-              <div>
-                <SearchBox
-                  chat={chat}
-                  selectOpen={selectOpen}
-                  onChatChange={handleHomeChatChange}
-                  onSubmit={initiateSearch}
-                />
-                <SuggestionCards onSuggestionClick={initiateSearch} />
+          <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl text-center">
+            <div className="flex gap-10 flex-wrap items-center">
+              <div className="flex-1">
+                <div className={`${chatInput ? "text-left" : null}`}>
+                  <Title
+                    heading="Designing smarter tomorrows with"
+                    gradheading="AI today!"
+                    description="Have tech questions? Our AI answer engine can help you find solutions faster than ever before."
+                  />
+                  <HeroButtons onAskNowClick={() => setChatInput(!chatInput)} />
+                </div>
               </div>
-            )}
+
+              {chatInput && (
+                <div className="flex-1">
+                  <SearchBox
+                    chat={chat}
+                    selectOpen={selectOpen}
+                    onChatChange={handleHomeChatChange}
+                    onSubmit={initiateSearch}
+                  />
+                  <SuggestionCards onSuggestionClick={initiateSearch} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
