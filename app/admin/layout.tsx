@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manRope.variable}`}>
+      <body className={`${manRope.variable} select-none admin`}>
         <ReduxProvider>
           <SidebarComp>{children}</SidebarComp>
         </ReduxProvider>

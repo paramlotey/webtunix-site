@@ -7,7 +7,7 @@ interface HeroBackgroundProps {
 
 const HeroBackground: React.FC<HeroBackgroundProps> = ({ isHomepage = false }) => {
   return (
-    <>
+    <div className="select-none">
       {/* Background Image */}
       <div className="absolute inset-0 -top-[5rem]">
         <Image
@@ -50,18 +50,18 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({ isHomepage = false }) =
             alt="shape-3"
             width={80}
             height={80}
-            className="hidden md:block absolute bottom-36 left-6 lg:left-72 w-9 h-9 sm:w-12 sm:h-12 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
+            className="hidden md:block absolute bottom-24 left-6 lg:left-72 w-9 h-9 sm:w-12 sm:h-12 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
           />
           <Image
             src="/Hero/section-bg-shape-4.png"
             alt="shape-4"
             width={80}
             height={80}
-            className="hidden md:block absolute bottom-30 right-6 lg:right-72 w-9 h-9 sm:w-12 sm:h-12 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
+            className="hidden md:block absolute bottom-24 right-6 lg:right-72 w-9 h-9 sm:w-12 sm:h-12 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
           />
         </>
       )}
-    </>
+    </div>
   );
 };
 

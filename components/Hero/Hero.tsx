@@ -9,13 +9,12 @@ import SuggestionCards from "./SuggestionCards";
 import ChatModal from "./ChatModal";
 import { ChatMessage } from "@/types";
 import Title from "../Common/Title";
+import { motion } from "framer-motion";
 
 const Hero: React.FC = () => {
   const [chat, setChat] = useState<string>("");
   const [modalChat, setModalChat] = useState<string>("");
-
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
-  const [chatInput, setChatInput] = useState<boolean>(false);
   const [chatResponse, setChatResponse] = useState<ChatMessage[]>([]);
   const [selectOpen, setSelectOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -142,31 +141,44 @@ const Hero: React.FC = () => {
         <HeroBackground isHomepage={true} />
 
         {/* Main Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center mt-20 px-4 py-12 sm:py-16 md:py-20 lg:py-24">
-          <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl text-center">
-            <div className="flex gap-10 flex-wrap items-center">
-              <div className="flex-1">
-                <div className={`${chatInput ? "text-left" : null}`}>
-                  <Title
-                    heading="Designing smarter tomorrows with"
-                    gradheading="AI today!"
-                    description="Have tech questions? Our AI answer engine can help you find solutions faster than ever before."
-                  />
-                  <HeroButtons onAskNowClick={() => setChatInput(!chatInput)} />
-                </div>
+        <div className="relative z-10 flex flex-col items-center justify-center mt-10 px-4 py-12 sm:py-16 md:py-20 lg:py-28">
+          <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl">
+            <div className="flex gap-0 flex-wrap">
+              <div className="flex-1 text-left">
+                <motion.h5
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="text-xs sm:text-sm md:text-base uppercase tracking-widest"
+                >
+                  <span className="text-[#e30613] mr-2">{"\u2726"}</span>
+                  WELCOME TO WEBTUNIX AI
+                  <span className="text-[#e30613] ml-2">{"\u2726"}</span>
+                </motion.h5>
+                <Title
+                  heading="Designing smarter tomorrows with"
+                  gradheading="AI today!"
+                />
+                <HeroButtons onAskNowClick={() => {}} />
               </div>
-
-              {chatInput && (
-                <div className="flex-1">
-                  <SearchBox
-                    chat={chat}
-                    selectOpen={selectOpen}
-                    onChatChange={handleHomeChatChange}
-                    onSubmit={initiateSearch}
-                  />
-                  <SuggestionCards onSuggestionClick={initiateSearch} />
-                </div>
-              )}
+              <motion.div
+                className="flex-1"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+              >
+                <p className="mt-4 sm:mt-6 text-[#A7AABB] text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed capitalize">
+                  Have tech questions? Our AI answer engine can help you find
+                  solutions faster than ever before.
+                </p>
+                <SearchBox
+                  chat={chat}
+                  selectOpen={selectOpen}
+                  onChatChange={handleHomeChatChange}
+                  onSubmit={initiateSearch}
+                />
+                <SuggestionCards onSuggestionClick={initiateSearch} />
+              </motion.div>
             </div>
           </div>
         </div>

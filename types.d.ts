@@ -12,7 +12,7 @@ export interface SearchSuggestion {
 export interface TitleProps {
   heading: string;
   gradheading: string;
-  description: string;
+  description?: string;
 }
 
 // Type for API error response
