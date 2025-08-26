@@ -77,14 +77,14 @@ const OurProjects = () => {
 
       {/* Section Title */}
       <motion.h2
-        className="mx-auto text-center text-2xl sm:text-3xl lg:text-5xl max-w-4xl my-6 sm:my-8 font-semibold leading-snug sm:leading-tight px-4"
+        className="mx-auto text-center text-2xl sm:text-3xl lg:text-5xl max-w-4xl my-6 sm:my-8 font-semibold leading-snug sm:leading-tight px-4 capitalize"
         initial="offscreen"
         whileInView="onscreen"
         viewport={{ once: true, amount: 0.3 }}
         variants={fadeUpVariants}
       >
         Real projects, real impact, real{" "}
-        <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent hover:from-[#e3061583] hover:to-[#e30613] transition-all duration-500 cursor-default">
+        <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent cursor-default transition duration-500 hover:from-[#e3061583] hover:to-[#e30613]">
           intelligence
         </span>
       </motion.h2>

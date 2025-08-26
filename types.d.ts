@@ -1,4 +1,12 @@
 // types.ts
+import { Table } from "@tanstack/react-table";
+
+declare module "@tanstack/react-table" {
+  interface TableMeta<TData extends RowData> {
+    updateData?: (id: string, columnId: string, value: any) => void;
+  }
+}
+
 export interface ChatMessage {
   sender: "user" | "bot";
   text: string;

@@ -25,12 +25,14 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image from "next/image";
 
 type Blog = {
   id: number;
   title: string;
   description: string | null;
   slug: string;
+  thumbnailImg: string;
   createdAt: string | Date;
   category: string[] | null;
 };
@@ -168,7 +170,16 @@ export default function PaginatedBlogsClient(props: Props) {
                   })}
                 </time>
               </div>
-
+              <div className="rounded-xl my-5 overflow-hidden relative group">
+                <Image
+                  src={blog.thumbnailImg}
+                  alt={blog.title}
+                  width={400}
+                  height={400}
+                  className="w-full object-cover"
+                />
+                <div className="absolute inset-0 after:content-[''] after:absolute after:w-[200%] after:h-0 after:top-1/2 after:left-1/2 after:bg-[#ffffff4d] after:-translate-x-1/2 after:-translate-y-1/2 after:-rotate-45 after:z-10 group-hover:after:h-full group-hover:after:bg-transparent group-hover:after:transition-all group-hover:after:duration-700" />
+              </div>
               <h3 className="text-white text-lg sm:text-xl md:text-2xl font-semibold mb-3 hover:text-[#e30613] transition-colors duration-300 cursor-pointer">
                 {blog.title}
               </h3>

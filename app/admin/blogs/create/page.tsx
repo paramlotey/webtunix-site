@@ -36,11 +36,10 @@ const QuillEditor = dynamic(() => import("@/components/Extra/QuillEditor"), {
   ssr: false,
 });
 
-
-
 const AdminBlogPage = () => {
   const [category_name, setCategory_name] = useState<string>("");
   const [title, setTitle] = useState("");
+  const [authorName, setAuthorName] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
   const [thumbnailImg, setThumbnailImg] = useState("");
@@ -72,6 +71,7 @@ const AdminBlogPage = () => {
     try {
       const result = await createBlog({
         title,
+        authorName,
         description,
         content,
         thumbnailImg,
@@ -82,6 +82,7 @@ const AdminBlogPage = () => {
 
       toast.success(result.message || "Blog Created");
       setTitle("");
+      setAuthorName("");
       setDescription("");
       setThumbnailImg("");
       setContent("");
@@ -142,7 +143,10 @@ const AdminBlogPage = () => {
             <DialogTrigger asChild>
               <Button variant="outline">Add Category</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] text-black h-full max-h-3/4 overflow-auto" style={{scrollbarWidth:"none"}}>
+            <DialogContent
+              className="sm:max-w-[425px] text-black h-full max-h-3/4 overflow-auto"
+              style={{ scrollbarWidth: "none" }}
+            >
               <form onSubmit={handleAddCategory}>
                 <DialogHeader className="my-5">
                   <DialogTitle>Add New Category</DialogTitle>
@@ -160,7 +164,7 @@ const AdminBlogPage = () => {
                   </div>
                 </div>
                 <div className="my-5 space-x-4">
-                   <DialogClose asChild>
+                  <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
                   <Button type="submit">Add Category</Button>
@@ -208,9 +212,7 @@ const AdminBlogPage = () => {
                   )}
                 </div>
 
-                <DialogFooter className="my-5">
-                 
-                </DialogFooter>
+                <DialogFooter className="my-5"></DialogFooter>
               </form>
             </DialogContent>
           </Dialog>
@@ -229,6 +231,17 @@ const AdminBlogPage = () => {
               placeholder="Enter blog title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block font-medium mb-1">Author Name</label>
+            <input
+              type="text"
+              placeholder="Enter author name"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>

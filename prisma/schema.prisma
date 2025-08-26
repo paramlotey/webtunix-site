@@ -76,3 +76,14 @@ model SEO {
 
   @@index([route])
 }
+
+model FAQ {
+  id       Int     @id @default(autoincrement())
+  question String
+  answer   String
+  status   Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+}

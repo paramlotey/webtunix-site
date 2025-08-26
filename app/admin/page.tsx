@@ -188,6 +188,30 @@ const AdminHome = () => {
             View Enquiries
           </Link>
         </div>
+
+                {/* Faq */}
+        <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <Image
+            width="58"
+            height="58"
+            src="/icons/faq.png"
+            alt="faqs"
+          />
+
+          <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+            FAQ's
+          </h5>
+
+          <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
+            Manage FAQ's questions and answers to engage user experience.
+          </p>
+          <Link
+            href="/admin/faq"
+            className="inline-flex items-center text-blue-600 hover:underline"
+          >
+            View FAQ
+          </Link>
+        </div>
       </div>
     </>
   );

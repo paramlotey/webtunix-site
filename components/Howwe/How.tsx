@@ -58,9 +58,9 @@ const How = () => {
             </div>
 
             {/* Heading */}
-            <h2 className="text-left text-2xl sm:text-3xl lg:text-5xl max-w-4xl mb-8 sm:mb-12 font-semibold leading-snug sm:leading-tight">
+            <h2 className="text-left text-2xl sm:text-3xl lg:text-5xl max-w-4xl mb-8 sm:mb-12 font-semibold leading-snug sm:leading-tight capitalize">
               Our process for smarter{" "}
-              <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent hover:from-[#e3061583] hover:to-[#e30613] transition-all duration-500 cursor-default">
+        <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent cursor-default transition duration-500 hover:from-[#e3061583] hover:to-[#e30613]">
                 AI solutions
               </span>
             </h2>
@@ -89,10 +89,10 @@ const How = () => {
 
                   {/* Step Text */}
                   <div className="w-full sm:w-2/3 flex flex-col items-start">
-                    <h5 className="text-lg sm:text-xl font-semibold mb-2 text-white">
+                    <h5 className="text-lg sm:text-xl font-semibold mb-2 text-white capitalize">
                       {title}
                     </h5>
-                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+                    <p className="text-gray-400 text-sm sm:text-base leading-relaxed capitalize">
                       {description}
                     </p>
                   </div>
@@ -118,7 +118,7 @@ const How = () => {
                 </video>
               </div>
               <div className="text-center mt-4 sm:mt-6 px-4">
-                <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base max-w-xl mx-auto">
+                <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base max-w-xl mx-auto capitalize">
                   We help businesses design, build, and deploy intelligent solutions
                   that drive real results.
                 </p>

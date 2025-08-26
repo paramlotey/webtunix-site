@@ -35,12 +35,12 @@ const Whyus = () => {
             </div>
 
             {/* Heading */}
-            <h2 className="mt-6 text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight animate-slideInLeft">
+            <h2 className="mt-6 text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight animate-slideInLeft capitalize">
               Discover why businesses trust our AI solutions
             </h2>
 
             {/* Paragraph */}
-            <p className="mt-4 text-gray-500 max-w-[640px] text-sm sm:text-base lg:text-lg leading-relaxed animate-slideInLeft delay-150">
+            <p className="mt-4 text-gray-500 max-w-[640px] text-sm sm:text-base lg:text-lg leading-relaxed animate-slideInLeft delay-150 capitalize">
               Discover why businesses trust our AI solutions: reliable,
               scalable, and tailored to drive smarter decisions and measurable
               results.

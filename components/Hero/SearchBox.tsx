@@ -117,13 +117,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <div className="absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none">
+        <div className="absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none select-none">
           <Image
             src="/Hero/input2.gif"
             alt="input"
             height={40}
             width={40}
             className="mix-blend-screen rounded-full"
+            unoptimized
           />
         </div>
         <button

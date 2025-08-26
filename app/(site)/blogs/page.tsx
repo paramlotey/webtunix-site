@@ -94,6 +94,7 @@ const Blogs = async ({ searchParams }: PageProps) => {
         slug: true,
         createdAt: true,
         category: true,
+        thumbnailImg:true
       },
     }),
     prisma.blogs.count({ where }),

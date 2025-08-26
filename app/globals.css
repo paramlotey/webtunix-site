@@ -170,3 +170,14 @@ button {
     transform: translate(10px, 10px) rotate(-40deg);
   }
 }
+.gradient-text {
+  background: linear-gradient(270deg, #e30613, #e3061583, #e30613);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.4s ease-in-out;
+}
+
+.gradient-text:hover {
+  background-position: 100% 0;
+}

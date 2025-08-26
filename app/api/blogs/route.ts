@@ -98,10 +98,12 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
+
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
 
+    // ✅ Basic validation
     if (!body.title || typeof body.title !== "string") {
       return NextResponse.json(
         {
@@ -141,6 +143,7 @@ export const POST = async (req: NextRequest) => {
       thumbnailImg: body.thumbnailImg.trim(),
     } as BlogsCreateInput;
 
+    // ✅ Optional fields
     if (body.description) {
       if (typeof body.description !== "string") {
         return NextResponse.json(
@@ -166,11 +169,11 @@ export const POST = async (req: NextRequest) => {
           { status: 400 }
         );
       }
-      
+
       const validTags = body.tags
         .filter((tag: string) => typeof tag === "string" && tag.trim())
         .map((tag: string) => tag.trim().toLowerCase());
-      
+
       if (validTags.length > 0) {
         blogData.tags = validTags;
       }
@@ -187,21 +190,32 @@ export const POST = async (req: NextRequest) => {
           { status: 400 }
         );
       }
-      
+
       const validCategories = body.category
         .filter((cat: string) => typeof cat === "string" && cat.trim())
         .map((cat: string) => cat.trim().toLowerCase());
-      
+
       if (validCategories.length > 0) {
         blogData.category = validCategories;
       }
     }
+
     if (body.images) {
-      
+      if (!Array.isArray(body.images)) {
+        return NextResponse.json(
+          {
+            error: "Images must be an array",
+            success: false,
+            message: "Validation Error",
+          },
+          { status: 400 }
+        );
+      }
+
       const images = body.images
-        .filter((cat: string) => typeof cat === "string" && cat.trim())
-        .map((cat: string) => cat.trim().toLowerCase());
-      
+        .filter((img: string) => typeof img === "string" && img.trim())
+        .map((img: string) => img.trim());
+
       if (images.length > 0) {
         blogData.images = images;
       }
@@ -217,29 +231,14 @@ export const POST = async (req: NextRequest) => {
       blogData.authorName = body.authorName.trim();
     }
 
-    if (body.slug && typeof body.slug === "string") {
-      blogData.slug = body.slug
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    } else {
-      blogData.slug = blogData.title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]+/g, "") 
-        .replace(/\s+/g, "-") 
-        .replace(/^-+|-+$/g, "");
-    }
+    // ✅ Slug = title in kebab-case (always)
+    blogData.slug = blogData.title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]+/g, "") // remove special chars
+      .replace(/\s+/g, "-") // replace spaces with -
+      .replace(/^-+|-+$/g, ""); // trim dashes
 
-    const existingBlog = await prisma.blogs.findFirst({
-      where: { slug: blogData.slug },
-    });
-
-    if (existingBlog) {
-      const timestamp = Date.now();
-      blogData.slug = `${blogData.slug}-${timestamp}`;
-    }
-
+    // ✅ Save blog
     const newBlog = await prisma.blogs.create({
       data: blogData,
     });
@@ -254,30 +253,6 @@ export const POST = async (req: NextRequest) => {
     );
   } catch (error) {
     console.error("Error creating blog post:", error);
-    
-    if (error instanceof Error) {
-      if (error.message.includes("Unique constraint")) {
-        return NextResponse.json(
-          {
-            error: "A blog post with this slug already exists",
-            success: false,
-            message: "Duplicate Error",
-          },
-          { status: 409 }
-        );
-      }
-      
-      if (error.message.includes("Foreign key constraint")) {
-        return NextResponse.json(
-          {
-            error: "Invalid author ID or reference",
-            success: false,
-            message: "Reference Error",
-          },
-          { status: 400 }
-        );
-      }
-    }
 
     return NextResponse.json(
       {
