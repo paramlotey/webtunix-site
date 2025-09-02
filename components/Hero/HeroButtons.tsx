@@ -1,6 +1,4 @@
-// HeroButtons.tsx
 import React from "react";
-import { motion } from "framer-motion";
 
 interface HeroButtonsProps {
   onAskNowClick: () => void;
@@ -8,12 +6,7 @@ interface HeroButtonsProps {
 
 const HeroButtons: React.FC<HeroButtonsProps> = ({ onAskNowClick }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
-      className="mt-6 sm:mt-8 md:mt-10 flex items-center gap-3 sm:gap-4 md:gap-6 flex-wrap"
-    >
+    <div className="mt-6 sm:mt-8 md:mt-10 flex items-center gap-3 sm:gap-4 md:gap-6 flex-wrap">
       <a href="#ourservices">
         <button className="relative overflow-hidden z-10 bg-black text-white border border-[#e30613] rounded-full px-4 py-2 md:px-6 md:py-3 text-xs sm:text-sm md:text-base font-medium hover:scale-105 hover:shadow-lg hover:shadow-[#e30613]/25 transition-all duration-300">
           Get Started Today
@@ -25,7 +18,7 @@ const HeroButtons: React.FC<HeroButtonsProps> = ({ onAskNowClick }) => {
       >
         Ask Now
       </button>
-    </motion.div>
+    </div>
   );
 };
 

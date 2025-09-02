@@ -8,10 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import {
-  useAdminLoginMutation,
   useAdminSignupMutation,
 } from "@/redux/apis/AdminApi";
-import { isApiError } from "@/components/Common/ApiError";
+import { isApiError } from "@/components/Extra/ApiError";
 
 
 const AdminSignup = () => {

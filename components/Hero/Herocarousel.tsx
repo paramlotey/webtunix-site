@@ -8,7 +8,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from 'next/image';
 const Herocarousel = () => {
   return (
-       <div className="flex justify-center px-4 relative z-50">
+       <div className="flex justify-center px-4 relative z-40">
           <div className="bg-transparent px-4 sm:px-6 md:px-8 py-2 sm:py-4 w-full max-w-6xl">
             <p className="text-center text-[#A7AABB] text-xs sm:text-sm md:text-base lg:text-lg mb-4 sm:mb-6 capitalize">
               Already chosen by industry leaders

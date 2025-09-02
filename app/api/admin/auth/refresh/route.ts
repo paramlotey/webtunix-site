@@ -37,6 +37,7 @@ export const GET = async (req: NextRequest) => {
 
     return response;
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { message: "Invalid refresh token", success: false },
       { status: 403 }

@@ -1,24 +1,31 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma"; // ✅ use singleton
+import { prisma } from "@/lib/prisma"; 
 
-
-const SITE_URL = process.env.Site_Url || "http://localhost:3000"; // your domain
+const SITE_URL = process.env.Site_Url || "http://localhost:3000";
 
 export async function GET() {
   try {
-    // Fetch all blogs with last updated date and image
-    const blogs = await prisma.blogs.findMany({
-      select: {
-        slug: true,
-        updatedAt: true,
-        thumbnailImg: true, // make sure this field exists
-      },
-    });
+    const [blogs,jobs] = await Promise.all([
+      prisma.blogs.findMany({
+        select: {
+          slug: true,
+          updatedAt: true,
+          thumbnailImg: true, 
+        },
+      }),
+      prisma.vacancies.findMany({
+        select:{
+          id:true,
+          JobTitle:true,
+          Primary_Skills:true,
+          Job_Description:true,
+          updatedAt:true,
+        }
+      })
+    ]);
 
-    // Static pages
-    const staticPages = ["", "blogs", "contact", "about", "services"];
+    const staticPages = ["", "blogs", "contact", "about", "services","careers"];
 
-    // Generate XML URLs for static pages
     const staticUrls = staticPages
       .map(
         (page) => `
@@ -31,7 +38,6 @@ export async function GET() {
       )
       .join("");
 
-    // Generate XML URLs for blogs, including images if available
     const blogUrls = blogs
       .map((blog) => {
         const imageTag = blog.thumbnailImg
@@ -53,13 +59,27 @@ export async function GET() {
       })
       .join("");
 
-    // Full sitemap XML
+      const jobUrls = jobs
+      .map((job) => {
+        return `
+      <url>
+        <loc>${SITE_URL}/careers/${job.JobTitle}</loc>
+        <lastmod>${job.updatedAt.toISOString()}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+        ${job.Job_Description}
+      </url>
+    `;
+      })
+      .join("");
+
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset 
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
       ${staticUrls}
       ${blogUrls}
+      ${jobUrls}
     </urlset>`;
 
     return new NextResponse(sitemap, {

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import HeroBackground from "@/components/Hero/HeroBackground";
-import Title from "@/components/Common/Title";
+import Title from "@/components/Extra/Title";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,9 +22,9 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import TopBlogs from "@/components/Blogs/TopBlogs";
-import NewsLetter from "@/components/Blogs/NewsLetter";
 import RelatedArticles from "@/components/Blogs/RelatedArticles";
 import Image from "next/image";
+import Connect from "@/components/Blogs/NewsLetter";
 
 interface PageProps {
   params: Promise<{
@@ -342,8 +342,8 @@ export default async function SingleBlogPage({ params }: PageProps) {
                 </article>
               </div>
 
-              <div className="w-full lg:w-1/4 space-y-6 sticky top-4 self-start">
-                <NewsLetter />
+              <div className="w-full lg:w-1/4 space-y-6 sticky top-32 self-start">
+                <Connect />
                 <TopBlogs topBlogs={topBlogs} />
               </div>
             </div>

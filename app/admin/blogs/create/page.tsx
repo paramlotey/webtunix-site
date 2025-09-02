@@ -1,6 +1,6 @@
 "use client";
 
-import { isApiError } from "@/components/Common/ApiError";
+import { isApiError } from "@/components/Extra/ApiError";
 import UploadWidget from "@/components/Extra/CloudinaryWidget";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -56,7 +56,7 @@ const AdminBlogPage = () => {
   };
 
   const [createBlog, { isLoading }] = useCreateBlogMutation();
-  const [createCategory, { isLoading: isCreatingCategory }] =
+  const [createCategory] =
     useCreateCategoryMutation();
   const {
     data: allCategory,

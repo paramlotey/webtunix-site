@@ -5,19 +5,15 @@ import { TitleProps } from "@/types";
 
 const Title = ({ heading, gradheading, description }: TitleProps) => {
   return (
-    <div className="select-none">
-      <motion.h1
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+    <div className="select-none capitalize">
+      <h1
         className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium text-white leading-tight capitalize"
       >
         {heading}{" "}
         <span className="gradient-text">
           {gradheading}
         </span>
-      </motion.h1>
-
+      </h1>
       <motion.p
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

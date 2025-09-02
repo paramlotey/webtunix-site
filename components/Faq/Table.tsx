@@ -3,21 +3,13 @@
 import * as React from "react";
 import {
   ColumnDef,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
   useReactTable,
-  VisibilityState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -27,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { EditDialog } from "./Edit_Dialog";
+import { toast } from "sonner";
 
 type FaqTable = {
   id: string;
@@ -58,20 +51,24 @@ export const columns: ColumnDef<FaqTable>[] = [
         <Switch
           checked={status}
           onCheckedChange={async (value) => {
-            // ✅ update local table data immediately
-            row.toggleSelected(false); // just to avoid warning
+            row.toggleSelected(false);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (row.original as any).status = value;
             table.options.meta?.updateData?.(id, "status", value);
 
-            // ✅ call API
             try {
               await fetch("/api/faq", {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, status: value }),
               });
-            } catch (error) {
+            } catch (error: unknown) {
               console.error("Failed to update FAQ status", error);
+              if (error instanceof Error) {
+                toast.error(error.message);
+              } else {
+                toast.error("An unexpected error occurred");
+              }
             }
           }}
         />
@@ -107,6 +104,7 @@ export function DataTableDemo({ data }: { data: FaqTable[] }) {
     getCoreRowModel: getCoreRowModel(),
     // getPaginationRowModel: getPaginationRowModel(),
     meta: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       updateData: (id: string, columnId: string, value: any) => {
         setTableData((old) =>
           old.map((row) =>

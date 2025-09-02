@@ -89,6 +89,7 @@ export default function LandingPageBlogsClient({
                 className="inline-flex items-center text-[#e30613] font-semibold text-sm sm:text-base group hover:underline"
               >
                 Read More
+                <span className="sr-only">{`${slug}`}</span>
                 <ArrowRight className="ml-2 w-5 h-5 sm:w-6 sm:h-6 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
               </Link>
             </motion.article>

@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${manRope.variable} select-none admin`}>
         <ReduxProvider>
           <SidebarComp>{children}</SidebarComp>

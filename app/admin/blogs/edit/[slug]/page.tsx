@@ -18,7 +18,8 @@ import {
   useGetSingleBlogQuery,
   useUpdateBlogMutation,
 } from "@/redux/apis/BlogApi";
-import { isApiError } from "@/components/Common/ApiError";
+import { isApiError } from "@/components/Extra/ApiError";
+import Image from "next/image";
 
 const QuillEditor = dynamic(() => import("@/components/Extra/QuillEditor"), {
   ssr: false,
@@ -134,7 +135,9 @@ const SingleBlogEdit = () => {
 
             {thumbnailImg && (
               <>
-                <img
+                <Image
+                  height={200}
+                  width={200}
                   src={thumbnailImg}
                   alt="Thumbnail Preview"
                   className="mt-2 max-w-full h-auto rounded"

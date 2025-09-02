@@ -7,7 +7,7 @@ interface HeroBackgroundProps {
 
 const HeroBackground: React.FC<HeroBackgroundProps> = ({ isHomepage = false }) => {
   return (
-    <div className="select-none">
+    <div className="select-none mt-32">
       {/* Background Image */}
       <div className="absolute inset-0 -top-[5rem]">
         <Image

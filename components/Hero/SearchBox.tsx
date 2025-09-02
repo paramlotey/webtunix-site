@@ -129,6 +129,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         </div>
         <button
           type="submit"
+          aria-label="Search"
           className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center p-2"
           onClick={handleSubmit}
           disabled={isLoadingSuggestions}

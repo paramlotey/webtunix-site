@@ -19,6 +19,7 @@ Disallow: /static/
 User-agent: Googlebot
 Allow: /about/
 Allow: /contact/
+Allow: /careers/
 Allow: /blogs/
 Allow: /services/
 `;

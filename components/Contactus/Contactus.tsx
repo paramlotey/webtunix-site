@@ -57,18 +57,18 @@ const ContactusPage = () => {
 
   const contactData = [
     { id: 1, icon: <Phone />, title: "Contact Us", subtitle: "+1234567890" },
-    { id: 2, icon: <Mail />, title: "Email Us", subtitle: "dummy@gmail.com" },
+    { id: 2, icon: <Mail />, title: "Email Us", subtitle: "info@webtunix.com" },
     {
       id: 3,
       icon: <Clock />,
       title: "Working Hours",
-      subtitle: "Mon-Fri 9AM-6PM",
+      subtitle: "Mon-Fri 10AM-7PM",
     },
     {
       id: 4,
       icon: <MapPin />,
       title: "Location",
-      subtitle: "123 Business St, City",
+      subtitle: "E-331, Phase 8B, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 160055",
     },
   ];
 
@@ -179,32 +179,36 @@ const ContactusPage = () => {
 
       {/* Contact Info Cards */}
       <motion.div
-        className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4 mx-20"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {contactData.map(({ id, icon, title, subtitle }) => (
-          <motion.article
-            key={id}
-            className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-5 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center border border-white/10"
-            variants={cardVariants}
-          >
-            <div className="flex items-center justify-center mb-4 text-[#e30613] w-12 h-12 sm:w-14 sm:h-14">
-              {icon}
-            </div>
+  className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4 mx-20"
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true, amount: 0.3 }}
+>
+  {contactData.map(({ id, icon, title, subtitle }) => (
+    <motion.article
+      key={id}
+      className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl px-1 py-5 sm:py-6 lg:py-8 flex flex-col items-center text-center border border-white/10"
+      variants={cardVariants}
+    >
+      {/* Icon */}
+      <div className="flex items-center justify-center text-[#e30613] w-12 h-12 sm:w-14 sm:h-14 mb-4">
+        {icon}
+      </div>
 
-            <h3 className="text-white text-lg sm:text-xl md:text-2xl font-semibold mb-3 hover:text-[#e30613] transition-colors duration-300 cursor-pointer">
-              {title}
-            </h3>
+      {/* Title */}
+      <h3 className="text-white text-lg sm:text-xl md:text-2xl font-semibold mb-3 hover:text-[#e30613] transition-colors duration-300 cursor-pointer">
+        {title}
+      </h3>
 
-            <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-              {subtitle}
-            </p>
-          </motion.article>
-        ))}
-      </motion.div>
+      {/* Subtitle (grows naturally) */}
+      <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+        {subtitle}
+      </p>
+    </motion.article>
+  ))}
+</motion.div>
+
     </section>
   );
 };

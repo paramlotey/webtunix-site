@@ -20,7 +20,6 @@ import { useAdminLogoutMutation } from "@/redux/apis/AdminApi";
 import {
   ArrowLeft,
   ChevronUp,
-  Menu,
   User2,
   FileText,
   Briefcase,
@@ -36,6 +35,11 @@ import React from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const SidebarComp = ({ children }: { children: React.ReactNode }) => {
   const [logout] = useAdminLogoutMutation();
@@ -82,6 +86,7 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
           <SidebarContent
             className="p-2 group-data-[collapsible=icon]:p-1 flex-1 overflow-y-auto"
             style={{ scrollbarWidth: "none" }}
+            suppressHydrationWarning
           >
             <div className="space-y-1">
               {/* Content Section */}
@@ -91,48 +96,94 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                 </h3>
                 <div className="space-y-1">
                   <Link href={"/admin/blogs/create"}>
-                    <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                      <FileText className="h-4 w-4 flex-shrink-0" />
-                      <span className="group-data-[collapsible=icon]:hidden ml-2">
-                        All Blogs
-                      </span>
-                    </SidebarMenuButton>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <FileText className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            All Blogs
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">All Blogs</TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
                   </Link>
                   <Link href={"/admin/blogs/edit"}>
-                    <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                      <Plus className="h-4 w-4 flex-shrink-0" />
-                      <span className="group-data-[collapsible=icon]:hidden ml-2">
-                        Create Blog
-                      </span>
-                    </SidebarMenuButton>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <Plus className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Create Blog
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">
+                          Create Blog
+                        </TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
                   </Link>
                 </div>
               </div>
 
               {/* Jobs Section */}
+
               <div className="px-3 py-2 group-data-[collapsible=icon]:px-1">
                 <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 group-data-[collapsible=icon]:hidden">
                   Jobs
                 </h3>
                 <div className="space-y-1">
-                  <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                    <Briefcase className="h-4 w-4 flex-shrink-0" />
-                    <span className="group-data-[collapsible=icon]:hidden ml-2">
-                      Job Listings
-                    </span>
-                  </SidebarMenuButton>
-                  <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                    <Plus className="h-4 w-4 flex-shrink-0" />
-                    <span className="group-data-[collapsible=icon]:hidden ml-2">
-                      Post Job
-                    </span>
-                  </SidebarMenuButton>
-                  <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                    <FileText className="h-4 w-4 flex-shrink-0" />
-                    <span className="group-data-[collapsible=icon]:hidden ml-2">
-                      Applications
-                    </span>
-                  </SidebarMenuButton>
+                  <Link href={"/admin/jobs/edit"}>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <Briefcase className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Job Listings
+                          </span>
+                        </SidebarMenuButton>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">Job Listings</TooltipContent>
+                    </Tooltip>
+                  </Link>
+                  <Link href={"/admin/jobs/create"}>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <Plus className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Post Job
+                            <TooltipContent side="right">
+                              Post Job
+                            </TooltipContent>
+                          </span>
+                        </SidebarMenuButton>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </Link>
+                  <Tooltip>
+                    <TooltipTrigger suppressHydrationWarning className="w-full">
+                      <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                        <FileText className="h-4 w-4 flex-shrink-0" />
+                        <span className="group-data-[collapsible=icon]:hidden ml-2">
+                          Applications
+                        </span>
+                      </SidebarMenuButton>
+                      <TooltipContent side="right">Applications</TooltipContent>
+                    </TooltipTrigger>
+                  </Tooltip>
                 </div>
               </div>
 
@@ -143,28 +194,52 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                 </h3>
                 <div className="space-y-1">
                   <Link href={"/admin/users"}>
-                    <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                      <Users className="h-4 w-4 flex-shrink-0" />
-                      <span className="group-data-[collapsible=icon]:hidden ml-2">
-                        Users
-                      </span>
-                    </SidebarMenuButton>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <Users className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Users
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">Users</TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
                   </Link>
                   <Link href={"/admin/enquiries"}>
-                    <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                      <Mail className="h-4 w-4 flex-shrink-0" />
-                      <span className="group-data-[collapsible=icon]:hidden ml-2">
-                        Enquiries
-                      </span>
-                    </SidebarMenuButton>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <Mail className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Enquiries
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">Enquiries</TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
                   </Link>
                   <Link href={"/admin/faq"}>
-                    <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                      <HelpCircle className="h-4 w-4 flex-shrink-0" />
-                      <span className="group-data-[collapsible=icon]:hidden ml-2">
-                        Faq's
-                      </span>
-                    </SidebarMenuButton>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <HelpCircle className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            {`Faq's`}
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">{`Faq's`}</TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
                   </Link>
                   <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
                     <BarChart3 className="h-4 w-4 flex-shrink-0" />
@@ -182,12 +257,20 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                 </h3>
                 <div className="space-y-1">
                   <Link href={"/admin/settings"}>
-                    <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                      <Settings className="h-4 w-4 flex-shrink-0" />
-                      <span className="group-data-[collapsible=icon]:hidden ml-2">
-                        Settings
-                      </span>
-                    </SidebarMenuButton>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <Settings className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Settings
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">Settings</TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
                   </Link>
                 </div>
               </div>

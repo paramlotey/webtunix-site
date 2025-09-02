@@ -29,15 +29,6 @@ model Blogs {
   @@index([show, createdAt])
 }
 
-model Category {
-  id            Int      @id @default(autoincrement())
-  category_name String   @unique
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  @@index([category_name])
-}
-
 model Admin {
   id            Int       @id @default(autoincrement())
   name          String
@@ -78,12 +69,91 @@ model SEO {
 }
 
 model FAQ {
-  id       Int     @id @default(autoincrement())
-  question String
-  answer   String
-  status   Boolean @default(false)
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    Boolean  @default(false)
+
+  @@index([createdAt])
+}
+
+model Vacancies {
+  id               Int            @id @default(autoincrement())
+  JobTitle         String
+  Job_Description  String
+  Min_exp          Int
+  Max_exp          Int
+  Job_type         Job_type
+  Salary           String?
+  Primary_Skills   String[]
+  Secondary_Skills String[]
+  Show             Boolean
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  applications     Applications[] @relation("VacancyResponses")
+}
+
+model Applications {
+  id            Int       @id @default(autoincrement())
+  applicantName String
+  email         String
+  phoneNo       Int
+  applied_for   Int
+  start_date    DateTime
+  qualification String[]
+  cover_letter  String?
+  resume        String
+  status        Status
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  vacancy       Vacancies @relation("VacancyResponses", fields: [applied_for], references: [id])
+}
+
+model Skills {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([createdAt])
+  @@index([name])
+}
+
+model Category {
+  id            Int      @id @default(autoincrement())
+  category_name String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category_name])
+}
+
+enum Job_type {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  FREELANCE
+  INTERNSHIP
+}
+
+enum Status {
+  pending
+  accepted
+  rejected
+}
+model Cookies {
+  id       String  @id @default(uuid()) @db.Uuid
+  ip       String?
+  location Json?
+  browser  Json?
+  os       Json?
+  device   Json?
+  cpu      Json?
+  engine   Json?
+  ua       String?
+  isBot    Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

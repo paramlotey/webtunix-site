@@ -8,7 +8,7 @@ import SearchBox from "./SearchBox";
 import SuggestionCards from "./SuggestionCards";
 import ChatModal from "./ChatModal";
 import { ChatMessage } from "@/types";
-import Title from "../Common/Title";
+import Title from "../Extra/Title";
 import { motion } from "framer-motion";
 
 const Hero: React.FC = () => {
@@ -26,6 +26,15 @@ const Hero: React.FC = () => {
     };
   }, [isChatOpen]);
 
+  useEffect(()=>{
+    (async () => {
+      try {
+        await fetch('/api/cookies')   
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  },[])
   const handleHomeChatChange = (value: string): void => {
     setChat(value);
     setSelectOpen(value.trim().length > 0);
@@ -66,7 +75,7 @@ const Hero: React.FC = () => {
       if (!reader) throw new Error("No reader available");
 
       let aiMessage = "";
-
+      setLoading(false)
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -87,6 +96,7 @@ const Hero: React.FC = () => {
               }
               return prev;
             });
+            setLoading(false);
             return;
           }
 
@@ -103,8 +113,9 @@ const Hero: React.FC = () => {
             return;
           }
 
-          if (!aiMessage) setLoading(false);
-          aiMessage += data + " ";
+          // each data is a little text chunk
+          aiMessage += JSON.parse(data);
+
           setChatResponse((prev) => {
             const last = prev[prev.length - 1];
             if (last?.sender === "bot") {
@@ -145,28 +156,22 @@ const Hero: React.FC = () => {
           <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl">
             <div className="flex gap-0 flex-wrap">
               <div className="flex-1 text-left">
-                <motion.h5
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className="text-xs sm:text-sm md:text-base uppercase tracking-widest"
-                >
+                <h5 className="text-xs sm:text-sm md:text-base uppercase tracking-widest">
                   <span className="text-[#e30613] mr-2">{"\u2726"}</span>
                   WELCOME TO WEBTUNIX AI
                   <span className="text-[#e30613] ml-2">{"\u2726"}</span>
-                </motion.h5>
+                </h5>
                 <Title
                   heading="Designing smarter tomorrows with"
                   gradheading="AI today!"
                 />
-                <HeroButtons onAskNowClick={() => {}} />
+                <HeroButtons
+                  onAskNowClick={() => {
+                    setIsChatOpen(true);
+                  }}
+                />
               </div>
-              <motion.div
-                className="flex-1"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-              >
+              <div className="flex-1">
                 <p className="mt-4 sm:mt-6 text-[#A7AABB] text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed capitalize">
                   Have tech questions? Our AI answer engine can help you find
                   solutions faster than ever before.
@@ -178,7 +183,7 @@ const Hero: React.FC = () => {
                   onSubmit={initiateSearch}
                 />
                 <SuggestionCards onSuggestionClick={initiateSearch} />
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>

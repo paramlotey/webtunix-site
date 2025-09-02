@@ -199,11 +199,11 @@ const AdminHome = () => {
           />
 
           <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            FAQ's
+            {`FAQ's`}
           </h5>
 
           <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
-            Manage FAQ's questions and answers to engage user experience.
+            Manage {`FAQ's`} questions and answers to engage user experience.
           </p>
           <Link
             href="/admin/faq"

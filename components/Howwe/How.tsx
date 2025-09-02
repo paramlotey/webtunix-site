@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import { Database, Globe } from "lucide-react";
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const steps = [
   {
@@ -38,7 +39,6 @@ const How = () => {
     >
       <div className="w-full mx-auto">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
-          
           {/* Left Section */}
           <div className="lg:w-1/2">
             {/* Tag */}
@@ -60,7 +60,7 @@ const How = () => {
             {/* Heading */}
             <h2 className="text-left text-2xl sm:text-3xl lg:text-5xl max-w-4xl mb-8 sm:mb-12 font-semibold leading-snug sm:leading-tight capitalize">
               Our process for smarter{" "}
-        <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent cursor-default transition duration-500 hover:from-[#e3061583] hover:to-[#e30613]">
+              <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent cursor-default transition duration-500 hover:from-[#e3061583] hover:to-[#e30613]">
                 AI solutions
               </span>
             </h2>
@@ -75,7 +75,11 @@ const How = () => {
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: index * 0.3, duration: 0.6, ease: "easeOut" }}
+                  transition={{
+                    delay: index * 0.3,
+                    duration: 0.6,
+                    ease: "easeOut",
+                  }}
                 >
                   {/* Step Icon & Number */}
                   <div className="flex flex-col items-start sm:items-center sm:pr-6 sm:border-r border-gray-700">
@@ -102,7 +106,7 @@ const How = () => {
           </div>
 
           {/* Right Section */}
-          <aside className="lg:w-1/2 lg:sticky lg:top-10 self-start">
+          <aside className="lg:w-1/2 lg:sticky lg:top-32 self-start">
             <div className="overflow-hidden rounded-lg">
               <div className="aspect-square overflow-hidden rounded-lg">
                 <video
@@ -112,26 +116,27 @@ const How = () => {
                   loop
                   muted
                   playsInline
-                  aria-label="Video demonstrating AI solutions process"
+                  aria-hidden="true"
                 >
                   Sorry, your browser does not support the video tag.
                 </video>
               </div>
               <div className="text-center mt-4 sm:mt-6 px-4">
                 <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base max-w-xl mx-auto capitalize">
-                  We help businesses design, build, and deploy intelligent solutions
-                  that drive real results.
+                  We help businesses design, build, and deploy intelligent
+                  solutions that drive real results.
                 </p>
-                <button
-                  className="bg-[#e30613] hover:bg-[#c50512] text-white px-6 py-2 rounded font-semibold transition-colors focus:outline-none focus:ring-4 focus:ring-[#e30613]/50 text-sm sm:text-base"
-                  aria-label="Contact us now"
-                >
-                  Contact Now
-                </button>
+                <Link href={"/contact-us"}>
+                  <button
+                    className="bg-[#e30613] hover:bg-[#c50512] text-white px-6 py-2 rounded font-semibold transition-colors focus:outline-none focus:ring-4 focus:ring-[#e30613]/50 text-sm sm:text-base"
+                    aria-label="Contact us now"
+                  >
+                    Contact Now
+                  </button>
+                </Link>
               </div>
             </div>
           </aside>
-
         </div>
       </div>
     </section>

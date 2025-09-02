@@ -4,6 +4,7 @@ import { Headset, Layers } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 
 // Parent container variant for staggering children
 const containerVariants: Variants = {
@@ -158,9 +159,11 @@ const OurServices = () => {
             <p className="text-gray-500 mb-4 sm:mb-5 text-sm sm:text-base">
               Whether {`you're`} looking to build a custom neural network, explore deep learning.
             </p>
+            <Link href={'/contact-us'}>
             <button className="bg-gradient-to-r from-[#e30613] to-[#b10510] text-white rounded-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium transform transition-all duration-300 hover:scale-105 shadow-lg">
               Contact Us
             </button>
+            </Link>
           </div>
         </motion.div>
       </motion.div>
