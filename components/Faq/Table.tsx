@@ -28,76 +28,99 @@ type FaqTable = {
   status: boolean;
 };
 
-export const columns: ColumnDef<FaqTable>[] = [
-  {
-    accessorKey: "question",
-    header: () => "Question",
-    cell: ({ row }) => <div>{row.getValue("question")}</div>,
-  },
-  {
-    accessorKey: "answer",
-    header: "Answer",
-    cell: ({ row }) => <div>{row.getValue("answer")}</div>,
-  },
-
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row, table }) => {
-      const status = row.getValue("status") as boolean;
-      const id = row.original.id;
-
-      return (
-        <Switch
-          checked={status}
-          onCheckedChange={async (value) => {
-            row.toggleSelected(false);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (row.original as any).status = value;
-            table.options.meta?.updateData?.(id, "status", value);
-
-            try {
-              await fetch("/api/faq", {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id, status: value }),
-              });
-            } catch (error: unknown) {
-              console.error("Failed to update FAQ status", error);
-              if (error instanceof Error) {
-                toast.error(error.message);
-              } else {
-                toast.error("An unexpected error occurred");
-              }
-            }
-          }}
-        />
-      );
-    },
-  },
-  {
-    accessorKey: "actions",
-    header: "Actions",
-    cell: ({ row }) => {
-      const data = row.original;
-      return (
-        <div className="flex gap-2">
-          <EditDialog data={data}></EditDialog>
-          <Button variant={"destructive"}>
-            <Trash2 />
-          </Button>
-        </div>
-      );
-    },
-  },
-];
-
 export function DataTableDemo({ data }: { data: FaqTable[] }) {
+  const [tableData, setTableData] = React.useState(data);
+
   React.useEffect(() => {
     setTableData(data);
   }, [data]);
 
-  const [tableData, setTableData] = React.useState(data);
+  const deleteFaq = async (id: string) => {
+    try {
+      const res = await fetch(`/api/faq`, {
+        body: JSON.stringify({ id }),
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      const resData = await res.json();
+      if (resData.success) {
+        setTableData((prev) => prev.filter((faq) => faq.id !== id));
+        toast.success("FAQ deleted successfully");
+      } else {
+        toast.error(resData.message || "Failed to delete FAQ");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An unexpected error occurred");
+    }
+  };
+
+  const columns: ColumnDef<FaqTable>[] = [
+    {
+      accessorKey: "question",
+      header: () => "Question",
+      cell: ({ row }) => <div>{row.getValue("question")}</div>,
+    },
+    {
+      accessorKey: "answer",
+      header: "Answer",
+      cell: ({ row }) => <div>{row.getValue("answer")}</div>,
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row, table }) => {
+        const status = row.getValue("status") as boolean;
+        const id = row.original.id;
+
+        return (
+          <Switch
+            checked={status}
+            onCheckedChange={async (value) => {
+              row.toggleSelected(false);
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (row.original as any).status = value;
+              table.options.meta?.updateData?.(id, "status", value);
+
+              try {
+                await fetch("/api/faq", {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id, status: value }),
+                });
+              } catch (error: unknown) {
+                console.error("Failed to update FAQ status", error);
+                if (error instanceof Error) {
+                  toast.error(error.message);
+                } else {
+                  toast.error("An unexpected error occurred");
+                }
+              }
+            }}
+          />
+        );
+      },
+    },
+    {
+      accessorKey: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const data = row.original;
+        return (
+          <div className="flex gap-2">
+            <EditDialog data={data}></EditDialog>
+            <Button
+              variant={"destructive"}
+              onClick={() => deleteFaq(data.id)}
+            >
+              <Trash2 />
+            </Button>
+          </div>
+        );
+      },
+    },
+  ];
+
   const table = useReactTable({
     data: tableData,
     columns,

@@ -132,6 +132,45 @@ CREATE TABLE "public"."Category" (
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "public"."Cookies" (
+    "id" UUID NOT NULL,
+    "ip" TEXT,
+    "location" JSONB,
+    "browser" JSONB,
+    "os" JSONB,
+    "device" JSONB,
+    "cpu" JSONB,
+    "engine" JSONB,
+    "ua" TEXT,
+    "isBot" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Cookies_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "public"."ChatSession" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "cookiesId" UUID NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ChatSession_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "public"."Message" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "role" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Message_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Blogs_title_key" ON "public"."Blogs"("title");
 
@@ -191,3 +230,9 @@ CREATE INDEX "Category_category_name_idx" ON "public"."Category"("category_name"
 
 -- AddForeignKey
 ALTER TABLE "public"."Applications" ADD CONSTRAINT "Applications_applied_for_fkey" FOREIGN KEY ("applied_for") REFERENCES "public"."Vacancies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "public"."ChatSession" ADD CONSTRAINT "ChatSession_cookiesId_fkey" FOREIGN KEY ("cookiesId") REFERENCES "public"."Cookies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "public"."Message" ADD CONSTRAINT "Message_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "public"."ChatSession"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

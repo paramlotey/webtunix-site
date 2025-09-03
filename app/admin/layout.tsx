@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${manRope.variable} select-none admin`}>
+      <body className={`${manRope.variable} admin`}>
         <ReduxProvider>
           <SidebarComp>{children}</SidebarComp>
         </ReduxProvider>

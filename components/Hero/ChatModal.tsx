@@ -197,7 +197,7 @@ const ChatModal: React.FC<ChatModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: -50 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 flex flex-col"
+          className="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[500] flex flex-col"
           style={{ transformOrigin: "top center" }}
         >
           <div className="flex flex-col h-full w-full mx-auto p-4 sm:p-6 px-28">

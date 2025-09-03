@@ -9,7 +9,6 @@ import SuggestionCards from "./SuggestionCards";
 import ChatModal from "./ChatModal";
 import { ChatMessage } from "@/types";
 import Title from "../Extra/Title";
-import { motion } from "framer-motion";
 
 const Hero: React.FC = () => {
   const [chat, setChat] = useState<string>("");
@@ -19,6 +18,9 @@ const Hero: React.FC = () => {
   const [selectOpen, setSelectOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [cookieId, setCookieId] = useState<string | null>(null);
+
   useEffect(() => {
     document.body.style.overflow = isChatOpen ? "hidden" : "";
     return () => {
@@ -26,15 +28,27 @@ const Hero: React.FC = () => {
     };
   }, [isChatOpen]);
 
-  useEffect(()=>{
+  useEffect(() => {
     (async () => {
       try {
-        await fetch('/api/cookies')   
+        const response = await fetch("/api/cookies", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCookieId(data.cookieId);
+          console.log("Cookie ID received:", data.cookieId);
+        }
       } catch (error) {
-        console.log(error)
+        console.log("Error setting up cookie:", error);
       }
-    })()
-  },[])
+    })();
+  }, []);
+
   const handleHomeChatChange = (value: string): void => {
     setChat(value);
     setSelectOpen(value.trim().length > 0);
@@ -46,9 +60,32 @@ const Hero: React.FC = () => {
     setChat("");
     setModalChat("");
     setLoading(false);
+    setSessionId(null);
   };
 
-  const initiateSearch = async (value?: string): Promise<void> => {
+  const handleChatOpen = (): void => {
+    const newSessionId = crypto.randomUUID();
+    setSessionId(newSessionId);
+    setIsChatOpen(true);
+    console.log("Session ID created immediately:", newSessionId);
+  };
+
+  const handleChat = async (value?: string): Promise<void> => {
+    if (!cookieId) {
+      console.error("Cookie ID not available");
+      return;
+    }
+
+    let currentSessionId = sessionId;
+    if (!currentSessionId) {
+      currentSessionId = crypto.randomUUID();
+      setSessionId(currentSessionId);
+      console.log("Fallback: Session ID created:", currentSessionId);
+    }
+
+    console.log("Using Session ID:", currentSessionId);
+    console.log("Using Cookie ID:", cookieId);
+
     const input = (value ?? (isChatOpen ? modalChat : chat)).trim();
     if (!input) return;
 
@@ -64,7 +101,11 @@ const Hero: React.FC = () => {
       const response = await fetch("/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat: input }),
+        body: JSON.stringify({
+          chat: input,
+          sessionId: currentSessionId,
+          cookieId: cookieId,
+        }),
       });
 
       if (!response.ok)
@@ -75,7 +116,7 @@ const Hero: React.FC = () => {
       if (!reader) throw new Error("No reader available");
 
       let aiMessage = "";
-      setLoading(false)
+      setLoading(false);
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -112,8 +153,6 @@ const Hero: React.FC = () => {
             setLoading(false);
             return;
           }
-
-          // each data is a little text chunk
           aiMessage += JSON.parse(data);
 
           setChatResponse((prev) => {
@@ -150,8 +189,6 @@ const Hero: React.FC = () => {
       <div className="relative w-full overflow-hidden min-h-[60vh] sm:min-h-[70vh] md:min-h-[75vh] lg:min-h-[80vh] xl:min-h-[85vh]">
         <Navbar />
         <HeroBackground isHomepage={true} />
-
-        {/* Main Content */}
         <div className="relative z-10 flex flex-col items-center justify-center mt-10 px-4 py-12 sm:py-16 md:py-20 lg:py-28">
           <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl">
             <div className="flex gap-0 flex-wrap">
@@ -165,11 +202,7 @@ const Hero: React.FC = () => {
                   heading="Designing smarter tomorrows with"
                   gradheading="AI today!"
                 />
-                <HeroButtons
-                  onAskNowClick={() => {
-                    setIsChatOpen(true);
-                  }}
-                />
+                <HeroButtons onAskNowClick={handleChatOpen} />
               </div>
               <div className="flex-1">
                 <p className="mt-4 sm:mt-6 text-[#A7AABB] text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed capitalize">
@@ -180,9 +213,9 @@ const Hero: React.FC = () => {
                   chat={chat}
                   selectOpen={selectOpen}
                   onChatChange={handleHomeChatChange}
-                  onSubmit={initiateSearch}
+                  onSubmit={handleChat}
                 />
-                <SuggestionCards onSuggestionClick={initiateSearch} />
+                <SuggestionCards onSuggestionClick={handleChat} />
               </div>
             </div>
           </div>
@@ -197,7 +230,7 @@ const Hero: React.FC = () => {
         chatResponse={chatResponse}
         onClose={handleChatClose}
         onChatChange={setModalChat}
-        onSubmit={initiateSearch}
+        onSubmit={handleChat}
         loading={loading}
       />
     </>

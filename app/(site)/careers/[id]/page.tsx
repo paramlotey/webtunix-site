@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { SlashIcon } from "lucide-react";
 import { toast } from "sonner";
+import { isApiError } from "@/components/Extra/ApiError";
 
 interface Job {
   JobTitle: string;
@@ -144,9 +145,13 @@ const JobDetailsClient = () => {
           cover_letter: "",
           resume: null,
         });
-      } catch (err: any) {
-        toast.error(err.message || "Something went wrong");
-      }
+      } catch (err: unknown) {
+            if (isApiError(err)) {
+              toast.error(err.data?.message || "Failed to create blog");
+            } else {
+              toast.error("Failed to create blog");
+            }
+          }
     };
 
     reader.readAsDataURL(formData.resume);

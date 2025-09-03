@@ -134,3 +134,35 @@ export const PUT = async (req: NextRequest) => {
     );
   }
 };
+
+export const DELETE = async (req: NextRequest) => {
+  const body = await req.json();
+  const { id } = body;
+  try {
+    const faq = await prisma.fAQ.findUnique({ where: { id } });
+
+    if (!faq) {
+      return NextResponse.json(
+        { success: false, message: "faq not found" },
+        { status: 404 }
+      );
+    }
+
+    await prisma.fAQ.delete({
+      where: { id },
+    });
+    return NextResponse.json({
+      message: "FAQ Deleted",
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error: error instanceof Error ? error.message : "Unknown error",
+        message: "Server Error",
+        success: false,
+      },
+      { status: 500 }
+    );
+  }
+};

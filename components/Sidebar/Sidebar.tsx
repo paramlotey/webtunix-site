@@ -241,12 +241,22 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                       </TooltipTrigger>
                     </Tooltip>
                   </Link>
-                  <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-                    <BarChart3 className="h-4 w-4 flex-shrink-0" />
-                    <span className="group-data-[collapsible=icon]:hidden ml-2">
-                      Analytics
-                    </span>
-                  </SidebarMenuButton>
+                  <Link href={"/admin/analytics"}>
+                    <Tooltip>
+                      <TooltipTrigger
+                        suppressHydrationWarning
+                        className="w-full"
+                      >
+                        <SidebarMenuButton className="w-full justify-start h-9 px-3 rounded-md hover:bg-gray-100 text-gray-700 hover:text-gray-900 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
+                          <BarChart3 className="h-4 w-4 flex-shrink-0" />
+                          <span className="group-data-[collapsible=icon]:hidden ml-2">
+                            Analytics
+                          </span>
+                        </SidebarMenuButton>
+                        <TooltipContent side="right">{`Analytics`}</TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </Link>
                 </div>
               </div>
 

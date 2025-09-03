@@ -141,7 +141,7 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
               const data = await res.json();
 
               // Normalize response formats
-              let items: any[] = [];
+              let items: Record<string, unknown>[] = [];
               if (data.success && Array.isArray(data.data)) {
                 items = data.data;
               } else if (Array.isArray(data)) {
@@ -164,7 +164,7 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
                     // ✅ Replace ANY placeholder ([id], [slug], [productId], etc.)
                     const expandedPath = route.path.replace(
                       /\[[^\]]+\]/,
-                      slugValue
+                      String(slugValue)
                     );
 
                     expandedRoutes.push({

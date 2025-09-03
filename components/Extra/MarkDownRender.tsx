@@ -1,10 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import Markdown, { Components } from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
+import hljs from "highlight.js";
 import "katex/dist/katex.min.css";
+import "highlight.js/styles/github-dark.css";
 import { cleanLatexMarkdown } from "./parseMarkdown";
 
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
@@ -20,6 +22,11 @@ const MarkdownRenderer = React.memo(({ children }: { children: string }) => {
     const cleanedText = cleanLatexMarkdown(children).replace(/\\n/g, "\n");
     return { tag, cleanedText };
   }, [children]);
+
+  // Initialize highlight.js
+  useEffect(() => {
+    hljs.highlightAll();
+  }, [cleanedText]);
 
   const components: Components = {
     h1: ({ node, ...props }) => (
@@ -149,18 +156,27 @@ const MarkdownRenderer = React.memo(({ children }: { children: string }) => {
         {...props}
       />
     ),
-    // 👇 Fixed `code` renderer with proper typing
+    // 🔧 Fixed code renderer with proper syntax highlighting
     code: ({ inline, className, children, ...props }: CodeProps) => {
-      const language = /language-(\w+)/.exec(className || "");
+      const match = /language-(\w+)/.exec(className || "");
+      const language = match ? match[1] : "text";
+      
+      // Convert children to string safely
+      const codeString = Array.isArray(children) 
+        ? children.join("") 
+        : String(children || "").replace(/\n$/, "");
+
       if (inline) {
         return (
           <code
             style={{
-              backgroundColor: "#f3f4f6",
-              padding: "0.125rem 0.25rem",
+              backgroundColor: "#374151",
+              color: "#f9fafb",
+              padding: "0.125rem 0.375rem",
               borderRadius: "0.25rem",
               fontSize: "0.875rem",
-              fontFamily: "monospace",
+              fontFamily: '"Fira Code", "Monaco", "Cascadia Code", "Roboto Mono", monospace',
+              border: "1px solid #4b5563",
             }}
             {...props}
           >
@@ -168,23 +184,71 @@ const MarkdownRenderer = React.memo(({ children }: { children: string }) => {
           </code>
         );
       }
+
+      // For code blocks, use highlight.js
+      let highlightedCode;
+      try {
+        if (language && language !== "text" && hljs.getLanguage(language)) {
+          highlightedCode = hljs.highlight(codeString, { language }).value;
+        } else {
+          highlightedCode = hljs.highlightAuto(codeString).value;
+        }
+      } catch (error) {
+        console.error("Syntax highlighting failed:", error);
+        highlightedCode = codeString;
+      }
+
       return (
-        <pre
+        <div
           style={{
-            backgroundColor: "#111827",
-            color: "#ffffff",
-            fontSize: "0.875rem",
-            borderRadius: "0.375rem",
-            padding: "1rem",
-            overflowX: "auto",
+            position: "relative",
             marginTop: "1rem",
             marginBottom: "1rem",
           }}
         >
-          <code className={`language-${language?.[1] || "text"}`} {...props}>
-            {children}
-          </code>
-        </pre>
+          {/* Language label */}
+          {language && language !== "text" && (
+            <div
+              style={{
+                position: "absolute",
+                top: "0.5rem",
+                right: "0.75rem",
+                fontSize: "0.75rem",
+                color: "#9ca3af",
+                backgroundColor: "#1f2937",
+                padding: "0.25rem 0.5rem",
+                borderRadius: "0.25rem",
+                zIndex: 10,
+              }}
+            >
+              {language}
+            </div>
+          )}
+          <pre
+            style={{
+              backgroundColor: "#111827",
+              color: "#f9fafb",
+              fontSize: "0.875rem",
+              lineHeight: "1.5",
+              borderRadius: "0.5rem",
+              padding: "1rem",
+              overflowX: "auto",
+              border: "1px solid #374151",
+              fontFamily: '"Fira Code", "Monaco", "Cascadia Code", "Roboto Mono", monospace',
+            }}
+          >
+            <code
+              className={`hljs language-${language}`}
+              dangerouslySetInnerHTML={{ __html: highlightedCode }}
+              style={{
+                backgroundColor: "transparent",
+                padding: "0",
+                fontSize: "inherit",
+                fontFamily: "inherit",
+              }}
+            />
+          </pre>
+        </div>
       );
     },
     hr: () => (
@@ -228,11 +292,12 @@ const MarkdownRenderer = React.memo(({ children }: { children: string }) => {
       </div>
     ),
     thead: ({ node, ...props }) => (
-      <thead style={{ backgroundColor: "#f3f4f6" }} {...props} />
+      <thead style={{ color:"#000000",
+          backgroundColor:"#646464bf" }} {...props} />
     ),
     tbody: ({ node, ...props }) => <tbody {...props} />,
     tr: ({ node, ...props }) => (
-      <tr style={{ borderBottom: "1px solid #d1d5db" }} {...props} />
+      <tr className="hover:bg-gray-500" style={{ borderBottom: "1px solid #d1d5db" }} {...props} />
     ),
     th: ({ node, ...props }) => (
       <th

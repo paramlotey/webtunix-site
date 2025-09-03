@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { prisma } from "@/lib/prisma";
+import type { ContentBlock } from "@anthropic-ai/sdk/resources/messages";
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
@@ -74,20 +75,27 @@ Analyze the resume and respond:`;
       max_tokens: 500,
       messages: [{ role: "user", content: prompt }],
     });
+    const firstBlock: ContentBlock | undefined = response.content[0];
 
-    const aiMessage = response.content[0]?.text || "{}";
-
+    let aiMessage = "{}";
+    if (firstBlock && firstBlock.type === "text") {
+      aiMessage = firstBlock.text;
+    }
     // Log for debugging
     console.log("AI Response:", aiMessage);
     console.log("Required Skills:", requiredSkills);
 
-    let parsedResponse: any;
+    type AIParsedResponse =
+      | { response: "successful" }
+      | { response: "unsuccessful"; missing: string[] };
+
+    let parsedResponse: AIParsedResponse;
     try {
       // Clean the response to ensure it's valid JSON
       const cleanedResponse = aiMessage.trim().replace(/```json|```/g, "");
       parsedResponse = JSON.parse(cleanedResponse);
     } catch (err) {
-      console.error("Failed to parse AI response:", aiMessage);
+      console.error("Failed to parse AI response:", err);
 
       // Fallback: manual skill checking as backup
       const resumeLower = resume.toLowerCase();
@@ -137,7 +145,7 @@ Analyze the resume and respond:`;
         { status: 400 }
       );
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error submitting application:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
