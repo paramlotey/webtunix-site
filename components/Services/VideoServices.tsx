@@ -54,7 +54,7 @@ const VideoServices = () => {
 
       {/* Title */}
       <motion.h2
-        className="mx-auto text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl max-w-4xl my-6 sm:my-8 font-semibold leading-snug sm:leading-tight capitalize"
+        className="mx-auto text-center text-2xl sm:text-3xl lg:text-5xl max-w-4xl my-6 sm:my-8 font-semibold leading-snug sm:leading-tight px-4 capitalize"
         initial="offscreen"
         whileInView="onscreen"
         viewport={{ once: true, amount: 0.3 }}

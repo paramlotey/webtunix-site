@@ -142,7 +142,7 @@ const Blogs = async ({ searchParams }: PageProps) => {
         </div>
       </div>
 
-      <div className="mx-4 sm:mx-8 md:mx-20 lg:mx-40 xl:mx-56 mb-20">
+      <div className="mx-4 sm:mx-8 md:mx-20 lg:mx-40 mb-20">
         <PaginatedBlogsClient
           key={JSON.stringify({ categories, search, sort, page, limit })}
           initialBlogs={data}

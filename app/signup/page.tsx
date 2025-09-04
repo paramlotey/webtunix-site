@@ -7,11 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import {
-  useAdminSignupMutation,
-} from "@/redux/apis/AdminApi";
+import { useAdminSignupMutation } from "@/redux/apis/AdminApi";
 import { isApiError } from "@/components/Extra/ApiError";
-
 
 const AdminSignup = () => {
   const router = useRouter();
@@ -25,8 +22,7 @@ const AdminSignup = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await adminSignup(form).unwrap();
-      console.log(response);
+      await adminSignup(form).unwrap();
       toast.success("Signup Successful");
       router.push("/admin-login");
     } catch (err: unknown) {

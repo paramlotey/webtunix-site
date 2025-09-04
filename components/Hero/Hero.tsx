@@ -41,7 +41,6 @@ const Hero: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           setCookieId(data.cookieId);
-          console.log("Cookie ID received:", data.cookieId);
         }
       } catch (error) {
         console.log("Error setting up cookie:", error);
@@ -67,7 +66,6 @@ const Hero: React.FC = () => {
     const newSessionId = crypto.randomUUID();
     setSessionId(newSessionId);
     setIsChatOpen(true);
-    console.log("Session ID created immediately:", newSessionId);
   };
 
   const handleChat = async (value?: string): Promise<void> => {
@@ -80,12 +78,7 @@ const Hero: React.FC = () => {
     if (!currentSessionId) {
       currentSessionId = crypto.randomUUID();
       setSessionId(currentSessionId);
-      console.log("Fallback: Session ID created:", currentSessionId);
     }
-
-    console.log("Using Session ID:", currentSessionId);
-    console.log("Using Cookie ID:", cookieId);
-
     const input = (value ?? (isChatOpen ? modalChat : chat)).trim();
     if (!input) return;
 
@@ -190,9 +183,9 @@ const Hero: React.FC = () => {
         <Navbar />
         <HeroBackground isHomepage={true} />
         <div className="relative z-10 flex flex-col items-center justify-center mt-10 px-4 py-12 sm:py-16 md:py-20 lg:py-28">
-          <div className="w-full max-w-xs sm:max-w-xl md:max-w-3xl lg:max-w-6xl xl:max-w-7xl">
-            <div className="flex gap-0 flex-wrap">
-              <div className="flex-1 text-left">
+          <div className="w-full max-w-xl sm:max-w-2xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl">
+            <div className="flex gap-0 flex-wrap lg:flex-row flex-col">
+              <div className="flex-1 text-center lg:text-left">
                 <h5 className="text-xs sm:text-sm md:text-base uppercase tracking-widest">
                   <span className="text-[#e30613] mr-2">{"\u2726"}</span>
                   WELCOME TO WEBTUNIX AI
@@ -205,11 +198,11 @@ const Hero: React.FC = () => {
                 <HeroButtons onAskNowClick={handleChatOpen} />
               </div>
               <div className="flex-1">
-                <p className="mt-4 sm:mt-6 text-[#A7AABB] text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed capitalize">
+                <p className="mt-4 sm:mt-6 text-[#A7AABB] text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed capitalize text-center lg:text-left">
                   Have tech questions? Our AI answer engine can help you find
                   solutions faster than ever before.
                 </p>
-                <SearchBox
+                <SearchBox  
                   chat={chat}
                   selectOpen={selectOpen}
                   onChatChange={handleHomeChatChange}

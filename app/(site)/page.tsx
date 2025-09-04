@@ -12,29 +12,25 @@ import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import React from "react";
 
-export const revalidate = 1800
+export const revalidate = 1800;
 
 export async function generateMetadata(): Promise<Metadata> {
-
   const seoInfo = await prisma.sEO.findUnique({
-    where:{route:"/"}
-  })
-  
+    where: { route: "/" },
+  });
+
   return {
     title: seoInfo?.title,
     description: seoInfo?.description,
-    keywords: seoInfo?.keywords
+    keywords: seoInfo?.keywords,
   };
 }
 
-
-export default async function Home(){
-
-
+export default async function Home() {
   const blogs = await prisma.blogs.findMany({
-    take:3,
-    orderBy:{createdAt:"desc"}
-  })
+    take: 3,
+    orderBy: { createdAt: "desc" },
+  });
 
   return (
     <>
@@ -48,9 +44,8 @@ export default async function Home(){
         <Whyus />
         <How />
         <Faq />
-        <LandingPageBlogs blogs={blogs}/>
+        <LandingPageBlogs blogs={blogs} />
       </div>
     </>
   );
-};
-
+}

@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { FilePlus, Pencil } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -11,11 +17,12 @@ const page = () => {
           Jobs Dashboard
         </h1>
         <p className="text-gray-600 mb-10 text-center">
-          Manage, create, and update your vacancies and categories from a central dashboard.
+          Manage, create, and update your vacancies and categories from a
+          central dashboard.
         </p>
       </div>
 
-        <div className="flex flex-wrap justify-evenly gap-6">
+      <div className="flex flex-wrap justify-evenly gap-6">
         {/* Add Blog */}
         <Card className="w-full max-w-sm hover:shadow-md transition">
           <CardHeader>
@@ -23,9 +30,7 @@ const page = () => {
               <FilePlus className="w-6 h-6" />
               <CardTitle>Add Job</CardTitle>
             </div>
-            <CardDescription>
-              Publish new jobs.
-            </CardDescription>
+            <CardDescription>Publish new jobs.</CardDescription>
           </CardHeader>
           <CardContent>
             <Link

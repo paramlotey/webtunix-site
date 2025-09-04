@@ -122,12 +122,7 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
       let expanded = false;
 
       for (const config of DYNAMIC_ROUTE_CONFIG) {
-        // ✅ only match against the defined regex pattern
         if (config.pattern.test(route.path)) {
-          console.log(
-            `🔍 Expanding route: ${route.path} using ${config.apiEndpoint}`
-          );
-
           try {
             const res = await fetch(
               `${baseUrl}${config.apiEndpoint}?limit=${config.limit}`,
@@ -136,18 +131,14 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
                 headers: { "Content-Type": "application/json" },
               }
             );
-
             if (res.ok) {
               const data = await res.json();
-
-              // Normalize response formats
               let items: Record<string, unknown>[] = [];
               if (data.success && Array.isArray(data.data)) {
                 items = data.data;
               } else if (Array.isArray(data)) {
                 items = data;
               } else {
-                // Fallback: take first array in the response
                 for (const key of Object.keys(data)) {
                   if (Array.isArray(data[key])) {
                     items = data[key];
@@ -161,7 +152,6 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
                   const slugValue =
                     item[config.slugField] || item.slug || item.id;
                   if (slugValue) {
-                    // ✅ Replace ANY placeholder ([id], [slug], [productId], etc.)
                     const expandedPath = route.path.replace(
                       /\[[^\]]+\]/,
                       String(slugValue)
@@ -175,7 +165,7 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
                   }
                 }
                 expanded = true;
-                break; // stop after first matching config
+                break;
               }
             } else {
               console.error(
@@ -189,8 +179,6 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
           }
         }
       }
-
-      // keep original route if not expanded
       if (!expanded) {
         expandedRoutes.push(route);
       }
@@ -212,8 +200,6 @@ export async function GET(request: Request) {
     if (expand) {
       routes = await expandDynamicRoutes(routes);
     }
-
-    // Sort routes alphabetically
     routes.sort((a, b) => a.path.localeCompare(b.path));
 
     return NextResponse.json({

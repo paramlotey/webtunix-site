@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const Page = () => {
   const [cookies, setCookies] = useState<VisitorData[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCookies = async () => {
@@ -185,7 +185,7 @@ const Page = () => {
                   className={`hover:bg-slate-50 transition-colors ${
                     index % 2 === 0 ? "bg-white" : "bg-slate-25"
                   }`}
-                  onClick={()=>router.push(`/admin/analytics/${cookie.id}`)}
+                  onClick={() => router.push(`/admin/analytics/${cookie.id}`)}
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2">
@@ -292,7 +292,7 @@ const Page = () => {
                       </div>
                     </div>
                   </td>
-                  
+
                   <td className="px-6 py-4 whitespace-nowrap text-slate-700">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-slate-400" />

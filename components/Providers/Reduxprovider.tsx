@@ -8,8 +8,13 @@ interface ReduxProviderProps {
   children: ReactNode;
 }
 const Store = makeStore();
-export default function ReduxProvider({
-  children,
-}: ReduxProviderProps) {
-  return <Provider store={Store}><Toaster richColors/>{children}</Provider>;
+export default function ReduxProvider({ children }: ReduxProviderProps) {
+  return (
+    <Provider store={Store}>
+      {/* <div onContextMenu={(e) => e.preventDefault()}> */}
+        <Toaster richColors />
+        {children}
+      {/* </div> */}
+    </Provider>
+  );
 }

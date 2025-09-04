@@ -8,7 +8,7 @@ const CreateJobs = () => {
         <h1 className="text-4xl font-semibold mb-8 text-center">
           📝 Create New Job
         </h1>
-      <CreateForm />
+        <CreateForm />
       </div>
     </div>
   );

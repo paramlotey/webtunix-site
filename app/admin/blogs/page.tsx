@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Pencil, FilePlus } from "lucide-react";
 
 export default function AdminBlogsPage() {
@@ -19,7 +25,8 @@ export default function AdminBlogsPage() {
               <CardTitle>Add Blog</CardTitle>
             </div>
             <CardDescription>
-              Publish new blog articles to share insights, tutorials, or updates.
+              Publish new blog articles to share insights, tutorials, or
+              updates.
             </CardDescription>
           </CardHeader>
           <CardContent>

@@ -15,7 +15,6 @@ const cardVariants: Variants = {
 
 const iconVariants: Variants = {
   animate: {
-    scale: [1, 1.2, 1],
     rotate: [0, 360, 0],
     transition: { repeat: Infinity, duration: 4, ease: "easeInOut" },
   },
@@ -98,18 +97,18 @@ const AISection = () => {
           </p>
         </div>
         <motion.div
-          className="absolute top-1/2 left-1/2"
+          className="absolute top-1/12 left-1/6 opacity-70"
           variants={iconVariants}
           animate="animate"
         >
-          <Layers className="bg-red-300 w-10 h-10 p-2 rounded-full" />
+          <Layers className="bg-red-300 w-8 h-8 p-2 rounded-full" />
         </motion.div>
         <motion.div
-          className="absolute top-1/2 left-1/2"
+          className="absolute top-3/4 left-4/5 opacity-70"
           variants={iconVariants}
           animate="animate"
         >
-          <Palette className="bg-red-300 w-10 h-10 p-2 rounded-full" />
+          <Palette className="bg-red-300 w-8 h-8 p-2 rounded-full" />
         </motion.div>
       </motion.div>
 

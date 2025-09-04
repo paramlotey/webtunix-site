@@ -97,64 +97,62 @@ const JobDetailsClient = () => {
       return;
     }
 
-    const reader = new FileReader();
+    // ✅ Build FormData for file + fields
+    const payload = new FormData();
+    payload.append("applicantName", formData.applicantName);
+    payload.append("email", formData.email);
+    payload.append("phoneNo", formData.phoneNo);
+    payload.append("applied_for", String(formData.applied_for));
+    payload.append("start_date", formData.start_date);
+    payload.append("qualification", formData.qualification.join(","));
+    payload.append("cover_letter", formData.cover_letter);
+    payload.append("resume", formData.resume);
 
-    reader.onload = async () => {
-      if (typeof reader.result !== "string") {
-        toast.error("Failed to read resume file.");
-        return;
-      }
+    try {
+      const response = await fetch("/api/application", {
+        method: "POST",
+        body: payload, // ✅ no headers, FormData sets it automatically
+      });
 
-      const base64Data = reader.result.split(",")[1];
-      const payload = {
-        ...formData,
-        resume: {
-          name: formData.resume?.name,
-          type: formData.resume?.type,
-          data: base64Data,
-        },
-      };
-
-      try {
-        const response = await fetch("/api/application", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          if (errorData.missing) {
-            toast.error(`Missing skills: ${errorData.missing.join(", ")}`);
-          } else {
-            toast.error(errorData.message || "Failed to submit application");
-          }
+      const responseText = await response.text();
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = JSON.parse(responseText);
+        } catch {
+          console.error("Server returned HTML instead of JSON:", responseText);
+          toast.error("Server error - please try again later");
           return;
         }
 
-        toast.success("Application submitted successfully!");
-        setFormData({
-          applicantName: "",
-          email: "",
-          phoneNo: "",
-          applied_for: id,
-          qualification: [],
-          start_date: "",
-          cover_letter: "",
-          resume: null,
-        });
-      } catch (err: unknown) {
-            if (isApiError(err)) {
-              toast.error(err.data?.message || "Failed to create blog");
-            } else {
-              toast.error("Failed to create blog");
-            }
-          }
-    };
+        if (errorData.missing) {
+          toast.error(`Missing skills: ${errorData.missing.join(", ")}`);
+        } else {
+          toast.error(errorData.message || "Failed to submit application");
+        }
+        return;
+      }
 
-    reader.readAsDataURL(formData.resume);
+      const data = JSON.parse(responseText);
+
+      toast.success("Application submitted successfully!");
+      setFormData({
+        applicantName: "",
+        email: "",
+        phoneNo: "",
+        applied_for: id,
+        qualification: [],
+        start_date: "",
+        cover_letter: "",
+        resume: null,
+      });
+    } catch (err: unknown) {
+      if (isApiError(err)) {
+        toast.error(err.data?.message);
+      } else {
+        toast.error("Failed to submit resume");
+      }
+    }
   };
 
   const handleQualificationChange = (

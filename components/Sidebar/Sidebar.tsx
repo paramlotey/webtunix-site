@@ -89,7 +89,6 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
             suppressHydrationWarning
           >
             <div className="space-y-1">
-              {/* Content Section */}
               <div className="px-3 py-2 group-data-[collapsible=icon]:px-1">
                 <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 group-data-[collapsible=icon]:hidden">
                   Content
@@ -131,8 +130,6 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                   </Link>
                 </div>
               </div>
-
-              {/* Jobs Section */}
 
               <div className="px-3 py-2 group-data-[collapsible=icon]:px-1">
                 <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 group-data-[collapsible=icon]:hidden">
@@ -187,7 +184,6 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                 </div>
               </div>
 
-              {/* Management Section */}
               <div className="px-3 py-2 group-data-[collapsible=icon]:px-1">
                 <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 group-data-[collapsible=icon]:hidden">
                   Management
@@ -260,7 +256,6 @@ const SidebarComp = ({ children }: { children: React.ReactNode }) => {
                 </div>
               </div>
 
-              {/* System Section */}
               <div className="px-3 py-2 group-data-[collapsible=icon]:px-1">
                 <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2 group-data-[collapsible=icon]:hidden">
                   System

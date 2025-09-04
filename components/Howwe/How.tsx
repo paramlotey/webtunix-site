@@ -38,15 +38,10 @@ const How = () => {
       aria-labelledby="how-we-work-title"
     >
       <div className="w-full mx-auto">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
-          {/* Left Section */}
+        <div className="flex flex-col-reverse lg:flex-row gap-10 lg:gap-16">
           <div className="lg:w-1/2">
-            {/* Tag */}
-            <div className="mb-6 sm:mb-8">
-              <h3
-                id="how-we-work-title"
-                className="text-xs sm:text-sm md:text-base uppercase bg-white/10 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 tracking-widest text-center inline-block"
-              >
+            <div className="mb-6 sm:mb-8 flex lg:justify-normal justify-center">
+              <h3 id="how-we-work-title" className="text-xs sm:text-sm md:text-base uppercase bg-white/10 rounded-full px-4 sm:px-5 py-1.5 sm:py-2 tracking-widest text-center inline-block">
                 <span className="text-[#e30613]" aria-hidden="true">
                   {"\u2726"}
                 </span>{" "}
@@ -57,15 +52,13 @@ const How = () => {
               </h3>
             </div>
 
-            {/* Heading */}
-            <h2 className="text-left text-2xl sm:text-3xl lg:text-5xl max-w-4xl mb-8 sm:mb-12 font-semibold leading-snug sm:leading-tight capitalize">
+            <h2 className="lg:text-left text-center text-2xl sm:text-3xl lg:text-5xl max-w-4xl mb-8 sm:mb-12 font-semibold leading-snug sm:leading-tight capitalize">
               Our process for smarter{" "}
               <span className="bg-gradient-to-r from-[#e30613] to-[#e3061583] bg-clip-text text-transparent cursor-default transition duration-500 hover:from-[#e3061583] hover:to-[#e30613]">
                 AI solutions
               </span>
             </h2>
 
-            {/* Steps */}
             <div className="flex flex-col gap-5">
               {steps.map(({ icon, title, description }, index) => (
                 <motion.article
@@ -105,7 +98,6 @@ const How = () => {
             </div>
           </div>
 
-          {/* Right Section */}
           <aside className="lg:w-1/2 lg:sticky lg:top-32 self-start">
             <div className="overflow-hidden rounded-lg">
               <div className="aspect-square overflow-hidden rounded-lg">

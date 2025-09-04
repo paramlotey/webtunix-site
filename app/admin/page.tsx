@@ -7,7 +7,9 @@ const AdminHome = () => {
       <div className="space-y-4">
         <div className="flex justify-center items-center">
           <div>
-            <h1 className="text-2xl font-bold text-center text-black">Admin Dashboard</h1>
+            <h1 className="text-2xl font-bold text-center text-black">
+              Admin Dashboard
+            </h1>
             <p className="text-gray-600">
               Welcome to your admin panel. Use the menu button above to toggle
               the sidebar.
@@ -189,14 +191,9 @@ const AdminHome = () => {
           </Link>
         </div>
 
-                {/* Faq */}
+        {/* Faq */}
         <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <Image
-            width="58"
-            height="58"
-            src="/icons/faq.png"
-            alt="faqs"
-          />
+          <Image width="58" height="58" src="/icons/faq.png" alt="faqs" />
 
           <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
             {`FAQ's`}

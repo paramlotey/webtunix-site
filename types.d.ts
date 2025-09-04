@@ -24,13 +24,13 @@ export interface TitleProps {
 }
 
 // Type for API error response
-interface ApiError {
+export interface ApiError {
   data?: {
     message?: string;
   };
 }
 
-type PageProps = {
+export type PageProps = {
   searchParams?: Promise<{
     page?: string;
     limit?: string;
@@ -39,7 +39,7 @@ type PageProps = {
     sort?: "latest" | "oldest" | "popular";
   }>;
 };
-interface VisitorData {
+export interface VisitorData {
   id: string;
   ip: string;
   location?: {
@@ -81,3 +81,26 @@ interface VisitorData {
   createdAt: string;
   updatedAt: string;
 }
+export type Blog = {
+  id: number;
+  title: string;
+  description: string | null;
+  slug: string;
+  thumbnailImg: string;
+  createdAt: string | Date;
+  category: string[] | null;
+};
+
+export type Props = {
+  initialBlogs: Blog[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  current: {
+    category: string[];
+    search: string;
+    sort: "latest" | "oldest" | "popular";
+  };
+  categories: string[];
+};

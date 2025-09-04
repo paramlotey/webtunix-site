@@ -4,7 +4,6 @@ import ReduxProvider from "@/components/Providers/Reduxprovider";
 import SidebarComp from "@/components/Sidebar/Sidebar";
 import { Manrope } from "next/font/google";
 
-
 const manRope = Manrope({
   variable: "--font-man-rope",
   subsets: ["latin"],

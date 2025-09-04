@@ -50,8 +50,6 @@ const ChatMessages: React.FC<{
       if (!msgElement) return;
 
       const htmlContent = msgElement.innerHTML;
-
-      // Plain fallback (for editors like VS Code)
       const plainText = text;
 
       const blobHtml = new Blob([htmlContent], { type: "text/html" });
@@ -91,24 +89,26 @@ const ChatMessages: React.FC<{
                 ref={(el: HTMLDivElement | null) => {
                   msgRefs.current[idx] = el;
                 }}
-                className={`relative group max-w-md sm:max-w-xl md:max-w-6xl p-5 rounded-lg shadow ${
+                className={`relative group max-w-[90%] sm:max-w-xl md:max-w-6xl p-3 sm:p-5 rounded-lg shadow ${
                   msg.sender === "user"
-                    ? "bg-[#38131333] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-2 border border-white/10 text-gray-100"
-                    : "bg-[#534f4f33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-2 border border-white/10 text-gray-100"
+                    ? "bg-[#38131333] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat border border-white/10 text-gray-100"
+                    : "bg-[#534f4f33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat border border-white/10 text-gray-100"
                 }`}
               >
                 {msg.sender === "bot" ? (
                   msg.streaming ? (
-                    <pre className="whitespace-pre-wrap text-gray-200">
+                    <pre className="whitespace-pre-wrap text-gray-200 text-sm sm:text-base">
                       {msg.text}
                     </pre>
                   ) : (
-                    <div className="prose prose-invert max-w-none break-words prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-code:text-red-400">
+                    <div className="prose prose-invert max-w-none break-words prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-code:text-red-400 text-sm sm:text-base">
                       <MarkdownRenderer>{msg.text.trim()}</MarkdownRenderer>
                     </div>
                   )
                 ) : (
-                  <span className="whitespace-pre-wrap">{msg.text}</span>
+                  <span className="whitespace-pre-wrap text-sm sm:text-base">
+                    {msg.text}
+                  </span>
                 )}
 
                 <button
@@ -131,8 +131,8 @@ const ChatMessages: React.FC<{
               <Image
                 src="/Hero/input2.gif"
                 alt="Loading"
-                height={200}
-                width={200}
+                height={120}
+                width={120}
                 className="mix-blend-screen rounded-full"
                 unoptimized
               />
@@ -141,7 +141,7 @@ const ChatMessages: React.FC<{
         </>
       ) : (
         <div className="flex items-center justify-center h-full">
-          <p className="text-gray-400 text-center">
+          <p className="text-gray-400 text-center text-sm sm:text-base">
             No messages yet. Start a conversation!
           </p>
         </div>
@@ -170,7 +170,7 @@ const ChatModal: React.FC<ChatModalProps> = ({
       if (value) {
         onSubmit(value);
         onChatChange("");
-        if (inputRef.current) inputRef.current.value = ""; 
+        if (inputRef.current) inputRef.current.value = "";
       }
     },
     [onSubmit, onChatChange]
@@ -200,38 +200,40 @@ const ChatModal: React.FC<ChatModalProps> = ({
           className="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[500] flex flex-col"
           style={{ transformOrigin: "top center" }}
         >
-          <div className="flex flex-col h-full w-full mx-auto p-4 sm:p-6 px-28">
+          <div className="flex flex-col h-full w-full mx-auto p-4 ">
             {/* Header */}
-            <div className="flex justify-between items-center border-b border-gray-700 pb-3 flex-shrink-0">
-              <h2 className="text-white text-xl sm:text-2xl font-bold">
+            <div className="flex justify-between items-center border-b border-gray-700 pb-2 sm:pb-3 flex-shrink-0">
+              <h2 className="text-white text-lg sm:text-xl md:text-2xl font-bold">
                 AI Chat
               </h2>
               <button
                 onClick={onClose}
-                className="text-white text-2xl hover:scale-110 transition-transform duration-200"
+                className="text-white text-xl sm:text-2xl hover:scale-110 transition-transform duration-200"
                 type="button"
               >
                 <X />
               </button>
             </div>
 
+            {/* Messages */}
             <ChatMessages chatResponse={chatResponse} loading={loading} />
 
+            {/* Input */}
             <form
               onSubmit={handleSubmit}
-              className="flex items-center gap-2 border-t border-gray-700 pt-3 flex-shrink-0"
+              className="flex items-center gap-2 border-t border-gray-700 pt-2 sm:pt-3 flex-shrink-0"
             >
               <input
                 ref={inputRef}
                 type="text"
                 placeholder="Type your message..."
-                className="flex-1 bg-gray-800 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e30613] transition-all duration-200"
+                className="flex-1 bg-gray-800 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#e30613] transition-all duration-200"
                 disabled={loading}
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-gradient-to-r from-[#e30613] to-[#e3061583] text-white px-4 py-2 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                className="bg-gradient-to-r from-[#e30613] to-[#e3061583] text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
               >
                 {loading ? "..." : "Send"}
               </button>

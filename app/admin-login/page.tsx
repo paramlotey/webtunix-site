@@ -8,38 +8,18 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useAdminLoginMutation } from "@/redux/apis/AdminApi";
-
-// Type for API error response
-interface ApiError {
-  data?: {
-    message?: string;
-  };
-}
-
-// Type guard to check if error has the expected structure
-const isApiError = (error: unknown): error is ApiError => {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "data" in error &&
-    typeof (error as ApiError).data === "object"
-  );
-};
+import { isApiError } from "@/components/Extra/ApiError";
 
 const AdminLogin = () => {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
-
   const [adminLogin, { isLoading }] = useAdminLoginMutation();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
   const handleLogin = async () => {
     try {
-      const response = await adminLogin(form).unwrap();
-      console.log(response);
+      await adminLogin(form).unwrap();
       toast.success("Login Successful");
       router.push("/admin");
     } catch (err: unknown) {
@@ -50,7 +30,6 @@ const AdminLogin = () => {
       }
     }
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-full max-w-sm shadow-lg">
