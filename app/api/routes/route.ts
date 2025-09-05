@@ -1,4 +1,13 @@
+
 // app/api/routes/route.ts
+
+interface SlugItem {
+  [key: string]: unknown;
+  slug?: string;
+  id?: string | number;
+}
+
+
 import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
@@ -190,7 +199,7 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
           }
 
           const data = await res.json();
-          let items: Record<string, any>[] = [];
+          let items: SlugItem[] = [];
 
           if (data && typeof data === "object" && data.success && Array.isArray(data.data)) {
             items = data.data;
@@ -310,24 +319,25 @@ export async function GET(request: Request) {
         timestamp: new Date().toISOString(),
       },
     });
-  } catch (error: any) {
-    const duration = Date.now() - started;
-    console.error("💥 Critical error in route discovery:", error);
+  } catch (error: unknown) {
+  const duration = Date.now() - started;
+  console.error("💥 Critical error in route discovery:", error);
 
-    return NextResponse.json(
-      {
-        success: false,
-        error: error?.message || "Failed to fetch routes",
-        routes: [],
-        total: 0,
-        debug: {
-          duration: `${duration}ms`,
-          stack: error?.stack,
-          environment: process.env.NODE_ENV,
-          timestamp: new Date().toISOString(),
-        },
+  return NextResponse.json(
+    {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to fetch routes",
+      routes: [],
+      total: 0,
+      debug: {
+        duration: `${duration}ms`,
+        stack: error instanceof Error ? error.stack : undefined,
+        environment: process.env.NODE_ENV,
+        timestamp: new Date().toISOString(),
       },
-      { status: 500 }
-    );
-  }
+    },
+    { status: 500 }
+  );
+}
+
 }
