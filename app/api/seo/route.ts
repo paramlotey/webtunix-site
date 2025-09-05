@@ -7,10 +7,14 @@ export const POST = async (req: NextRequest) => {
     const { title, route, description, keywords } = body;
 
     if (
-      (!title || typeof title !== "string") &&
-      (!route || typeof route !== "string") &&
-      (!description || typeof description !== "string") &&
-      (!keywords || typeof keywords !== "string")
+      !title ||
+      !route ||
+      !description ||
+      !keywords ||
+      typeof title !== "string" ||
+      typeof route !== "string" ||
+      typeof description !== "string" ||
+      typeof keywords !== "string"
     ) {
       return NextResponse.json({
         message: "Please Fill All Fields Correctly",
@@ -18,13 +22,15 @@ export const POST = async (req: NextRequest) => {
       });
     }
 
-    const newSeo = await prisma.sEO.create({
-      data: { route, description, keywords, title },
+    const seoData = await prisma.sEO.upsert({
+      where: { route }, // unique field in your Prisma schema
+      update: { title, description, keywords },
+      create: { route, title, description, keywords },
     });
 
     return NextResponse.json({
-      seo: newSeo,
-      message: "Meta Info Created Successfully",
+      seo: seoData,
+      message: "Meta Info Saved Successfully",
       success: true,
     });
   } catch (error) {
