@@ -3,7 +3,7 @@ import path from "path";
 import { NextResponse } from "next/server";
 
 export const config = {
-  maxDuration: 30, 
+  maxDuration: 30,
 };
 
 const appDir = path.join(process.cwd(), "app");
@@ -153,10 +153,9 @@ async function fetchWithTimeout(
 
 async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
   const expandedRoutes: RouteInfo[] = [];
-  const baseUrl =
-    process.env.Site_Url
-      ? `https://${process.env.Site_Url}`
-      : "http://localhost:3000";
+  const baseUrl = process.env.Site_Url
+    ? `${process.env.Site_Url}`
+    : "http://localhost:3000";
 
   console.log(`🌐 Using base URL: ${baseUrl}`);
 
@@ -210,6 +209,12 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
                     }
                   }
                 }
+                console.log(
+                  "API raw response for",
+                  config.apiEndpoint,
+                  ":",
+                  data
+                );
 
                 console.log(`📊 Found ${items.length} items for ${route.path}`);
 
@@ -229,7 +234,7 @@ async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
                       expandedRoutes.push({
                         ...route,
                         path: expandedPath,
-                        type: "static",
+                        type: route.type,
                       });
                     }
                   }
