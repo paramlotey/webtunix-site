@@ -2,9 +2,8 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 
-// Vercel serverless function configuration
 export const config = {
-  maxDuration: 30, // 30 seconds max for Vercel Pro (10s for Hobby)
+  maxDuration: 30, 
 };
 
 const appDir = path.join(process.cwd(), "app");
@@ -155,10 +154,8 @@ async function fetchWithTimeout(
 async function expandDynamicRoutes(routes: RouteInfo[]): Promise<RouteInfo[]> {
   const expandedRoutes: RouteInfo[] = [];
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.Site_Url ||
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
+    process.env.Site_Url
+      ? `https://${process.env.Site_Url}`
       : "http://localhost:3000";
 
   console.log(`🌐 Using base URL: ${baseUrl}`);
