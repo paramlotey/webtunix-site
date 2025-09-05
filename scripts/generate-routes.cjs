@@ -1,12 +1,12 @@
 // scripts/generate-routes.cjs
-/* Generates .next/routes.json by scanning the /app folder.
+/* Generates public/routes.json by scanning the /app folder.
  * This runs on your build machine (Vercel/CI/local), NOT inside serverless.
  */
 const fs = require("fs");
 const path = require("path");
 
 const APP_DIR = path.join(process.cwd(), "app");
-const OUTPUT = path.join(process.cwd(), ".next", "routes.json");
+const OUTPUT = path.join(process.cwd(), "public", "routes.json");
 
 function getRoutesFromFs(dir, baseRoute = "") {
   const routes = [];

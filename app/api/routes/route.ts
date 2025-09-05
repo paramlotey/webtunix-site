@@ -23,7 +23,7 @@ export const config = {
 };
 
 const APP_DIR = path.join(process.cwd(), "app");
-const ROUTES_JSON = path.join(process.cwd(), ".next", "routes.json");
+const ROUTES_JSON = path.join(process.cwd(), "public", "routes.json");
 
 // ---------- Types ----------
 interface RouteInfo {
