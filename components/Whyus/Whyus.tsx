@@ -15,7 +15,7 @@ const Whyus = () => {
               className="absolute -top-1/6 left-1/2 w-2/3 h-2/3 -translate-x-1/2 rounded-full bg-[#e30613] opacity-20 blur-3xl z-0"
             />
             <Image
-              src="/Why/why-choose.png"
+              src="/Why/why-choose.webp"
               alt="robot"
               width={400}
               height={800}
@@ -40,7 +40,7 @@ const Whyus = () => {
             </h2>
 
             {/* Paragraph */}
-            <p className="mt-4 text-gray-500 max-w-[640px] text-sm sm:text-base lg:text-lg leading-relaxed animate-slideInLeft delay-150 capitalize">
+            <p className="mt-4 text-gray-300 max-w-[640px] text-sm sm:text-base lg:text-lg leading-relaxed animate-slideInLeft delay-150 capitalize">
               Discover why businesses trust our AI solutions: reliable,
               scalable, and tailored to drive smarter decisions and measurable
               results.
@@ -53,7 +53,7 @@ const Whyus = () => {
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#e30613] text-white text-xs animate-pulse">
                     ✓
                   </span>
-                  <span className="text-gray-500 text-sm sm:text-base">
+                  <span className="text-gray-300 text-sm sm:text-base">
                     Proven Accuracy and Reliability
                   </span>
                 </li>
@@ -61,7 +61,7 @@ const Whyus = () => {
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#e30613] text-white text-xs animate-pulse delay-100">
                     ✓
                   </span>
-                  <span className="text-gray-500 text-sm sm:text-base">
+                  <span className="text-gray-300 text-sm sm:text-base">
                     Scalable for Any Business Size
                   </span>
                 </li>
@@ -72,7 +72,7 @@ const Whyus = () => {
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#e30613] text-white text-xs animate-pulse">
                     ✓
                   </span>
-                  <span className="text-gray-500 text-sm sm:text-base">
+                  <span className="text-gray-300 text-sm sm:text-base">
                     Real-Time Insights and Analytics
                   </span>
                 </li>
@@ -80,7 +80,7 @@ const Whyus = () => {
                   <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#e30613] text-white text-xs animate-pulse delay-100">
                     ✓
                   </span>
-                  <span className="text-gray-500 text-sm sm:text-base">
+                  <span className="text-gray-300 text-sm sm:text-base">
                     Customizable to Industry Needs
                   </span>
                 </li>

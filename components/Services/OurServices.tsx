@@ -67,7 +67,7 @@ const OurServices = () => {
       >
         {/* Card 1 */}
         <motion.div
-          className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col justify-between border border-white/10"
+          className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.webp')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col justify-between border border-white/10"
           variants={fadeUpVariants}
         >
           <div>
@@ -88,7 +88,7 @@ const OurServices = () => {
           </div>
           <div className="rounded-xl mt-6 sm:mt-10 overflow-hidden relative group">
             <Image
-              src="/Service/service-1.jpg"
+              src="/Service/service-1.webp"
               alt="service 1"
               width={400}
               height={400}
@@ -102,7 +102,7 @@ const OurServices = () => {
         <div className="flex flex-col gap-4 sm:gap-6">
           {/* Card 2 */}
           <motion.div
-            className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 border border-white/10 relative overflow-hidden flex-1"
+            className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.webp')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 border border-white/10 relative overflow-hidden flex-1"
             variants={fadeUpVariants}
           >
             <div className="absolute bottom-3 right-3 opacity-10">
@@ -124,7 +124,7 @@ const OurServices = () => {
 
           {/* Card 3 */}
           <motion.div
-            className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.png')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 border border-white/10 relative overflow-hidden flex-1"
+            className="bg-[#1B1B1B33] bg-[url('/Service/service-bg.webp')] bg-center bg-cover bg-no-repeat rounded-2xl p-6 sm:p-8 border border-white/10 relative overflow-hidden flex-1"
             variants={fadeUpVariants}
           >
             <div className="absolute bottom-3 right-3 opacity-10">
@@ -147,7 +147,7 @@ const OurServices = () => {
 
         {/* Card 4 */}
         <motion.div
-          className="rounded-2xl overflow-hidden border border-white/5 bg-[url('/Service/service-2.jpg')] bg-center bg-cover bg-no-repeat flex flex-col"
+          className="rounded-2xl overflow-hidden border border-white/5 bg-[url('/Service/service-2.webp')] bg-center bg-cover bg-no-repeat flex flex-col"
           variants={fadeUpVariants}
         >
           <div className="flex-1"></div>

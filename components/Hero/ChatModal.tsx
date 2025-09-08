@@ -128,13 +128,17 @@ const ChatMessages: React.FC<{
 
           {loading && (
             <div className="flex justify-center items-center">
-              <Image
-                src="/Hero/input2.gif"
-                alt="Loading"
-                height={120}
-                width={120}
+              <video
+                src="/Hero/input2.webm"
+                aria-label="Loading animation"
+                height={250}
+                width={250}
                 className="mix-blend-screen rounded-full"
-                unoptimized
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
               />
             </div>
           )}

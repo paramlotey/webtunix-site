@@ -8,10 +8,9 @@ interface HeroBackgroundProps {
 const HeroBackground: React.FC<HeroBackgroundProps> = ({ isHomepage = false }) => {
   return (
     <div className="select-none mt-32">
-      {/* Background Image */}
       <div className="absolute inset-0 -top-[5rem]">
         <Image
-          src="/Hero/hero-bg-shape.png"
+          src="/Hero/hero-bg-shape.webp"
           alt="Hero background"
           fill
           priority
@@ -26,34 +25,32 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({ isHomepage = false }) =
         />
       </div>
 
-      {/* Shapes */}
       <Image
-        src="/Hero/section-bg-shape-1.png"
+        src="/Hero/section-bg-shape-1.webp"
         alt="shape-1"
         width={80}
         height={80}
         className="hidden sm:block absolute top-36 left-4 md:left-10 lg:left-36 w-10 h-10 sm:w-14 sm:h-14 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
       />
       <Image
-        src="/Hero/section-bg-shape-2.png"
+        src="/Hero/section-bg-shape-2.webp"
         alt="shape-2"
         width={80}
         height={80}
         className="hidden sm:block absolute top-36 right-4 md:right-10 lg:right-36 w-10 h-10 sm:w-14 sm:h-14 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
       />
       
-      {/* Conditional shapes for homepage only */}
       {isHomepage && (
         <>
           <Image
-            src="/Hero/section-bg-shape-3.png"
+            src="/Hero/section-bg-shape-3.webp"
             alt="shape-3"
             width={80}
             height={80}
             className="hidden md:block absolute bottom-24 left-6 lg:left-72 w-9 h-9 sm:w-12 sm:h-12 md:w-28 md:h-28 animate-spin-slow pointer-events-none"
           />
           <Image
-            src="/Hero/section-bg-shape-4.png"
+            src="/Hero/section-bg-shape-4.webp"
             alt="shape-4"
             width={80}
             height={80}

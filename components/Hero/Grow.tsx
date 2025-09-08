@@ -62,7 +62,7 @@ const AISection = () => {
             />
           </motion.button>
           <motion.img
-            src={"/Hero/bot1.png"}
+            src={"/Hero/bot1.webp"}
             alt="Bot Left"
             className="w-14 sm:w-20 h-auto scale-[1.7]"
             initial={{ x: -50, opacity: 0 }}
@@ -76,7 +76,7 @@ const AISection = () => {
       <motion.div
         className="relative bg-[#0e0e0e] rounded-2xl p-6 sm:p-8 w-full lg:w-1/3 flex flex-col justify-center items-center text-center min-h-[330px]"
         style={{
-          backgroundImage: `url(/Hero/botbg.png)`,
+          backgroundImage: `url(/Hero/botbg.webp)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -163,7 +163,7 @@ const AISection = () => {
             </p>
           </div>
           <motion.img
-            src={"/Hero/bot2.png"}
+            src={"/Hero/bot2.webp"}
             alt="Bot Right"
             className="w-14 sm:w-20 h-auto scale-[1.7] mr-2"
             initial={{ x: 50, opacity: 0 }}

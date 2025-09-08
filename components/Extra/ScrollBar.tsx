@@ -1,16 +1,14 @@
 "use client";
 import { useAnimation, motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const ScrollBar = () => {
-  const [scrollPercentage, setScrollPercentage] = useState(0);
   const controls = useAnimation();
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
       const scrolled = (scrollTop / docHeight) * 100;
-      setScrollPercentage(scrolled);
       controls.start({ width: `${scrolled}%` });
     };
     window.addEventListener("scroll", handleScroll);

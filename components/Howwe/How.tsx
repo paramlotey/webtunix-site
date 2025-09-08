@@ -86,9 +86,9 @@ const How = () => {
 
                   {/* Step Text */}
                   <div className="w-full sm:w-2/3 flex flex-col items-start">
-                    <h5 className="text-lg sm:text-xl font-semibold mb-2 text-white capitalize">
+                    <p className="text-lg sm:text-xl font-semibold mb-2 text-white capitalize">
                       {title}
-                    </h5>
+                    </p>
                     <p className="text-gray-400 text-sm sm:text-base leading-relaxed capitalize">
                       {description}
                     </p>

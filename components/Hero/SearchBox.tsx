@@ -18,7 +18,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onSubmit,
 }) => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState<boolean>(false);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] =
+    useState<boolean>(false);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
   const debounce = useCallback(
@@ -124,13 +125,17 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           onKeyDown={handleKeyDown}
         />
         <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 pointer-events-none select-none">
-          <Image
-            src="/Hero/input2.gif"
-            alt="input"
+          <video
+            src="/Hero/input2.webm"
+            aria-label="Loading animation"
             height={32}
             width={32}
             className="mix-blend-screen rounded-full sm:h-10 sm:w-10"
-            unoptimized
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
           />
         </div>
         <button

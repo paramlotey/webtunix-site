@@ -30,7 +30,7 @@ const OurProjects = () => {
       title: "AI-Powered Healthcare Diagnostics",
       description:
         "Revolutionary machine learning system for early disease detection and medical imaging analysis.",
-      image: "/Service/service-1.jpg",
+      image: "/Service/service-1.webp",
       category: "Healthcare AI",
     },
     {
@@ -38,7 +38,7 @@ const OurProjects = () => {
       title: "Smart Financial Trading Bot",
       description:
         "Advanced neural network system for automated trading and market prediction with real-time analysis.",
-      image: "/Service/service-2.jpg",
+      image: "/Service/service-2.webp",
       category: "FinTech AI",
     },
     {
@@ -46,7 +46,7 @@ const OurProjects = () => {
       title: "Natural Language Processing Suite",
       description:
         "Comprehensive NLP solution for sentiment analysis, chatbots, and content generation.",
-      image: "/Service/service-1.jpg",
+      image: "/Service/service-1.webp",
       category: "NLP Solutions",
     },
     {
@@ -54,7 +54,7 @@ const OurProjects = () => {
       title: "Computer Vision Security System",
       description:
         "Real-time object detection and facial recognition system for enhanced security monitoring.",
-      image: "/Service/service-2.jpg",
+      image: "/Service/service-2.webp",
       category: "Computer Vision",
     },
   ];

@@ -16,9 +16,8 @@ export async function middleware(req: NextRequest) {
 
     return NextResponse.next(); // ✅ Valid token
   } catch (err) {
-    console.error("❌ JWT verification failed:", err);
     return NextResponse.json(
-      { message: "Invalid or expired token", success: false },
+      { message: "Invalid or expired token", success: false, err },
       { status: 401 }
     );
   }

@@ -19,9 +19,14 @@ const ScrolltoTopBtn = () => {
 
   return (
     <button
+      aria-label="ScrollUp"
       onClick={scrollToTop}
       className={`fixed bottom-6 right-6 z-50 bg-gradient-to-bl from-[#e30613] to-[#e3061583] hover:from-[#e3061583] hover:to-[#e30613] text-white  p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out
-        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}
+        ${
+          isVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4 pointer-events-none"
+        }
       `}
     >
       <MoveUp size={16} />

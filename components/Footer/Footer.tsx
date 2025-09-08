@@ -212,7 +212,7 @@ const Footer = () => {
               <p className="flex items-center gap-2 hover:text-white cursor-pointer">
                 <span>🇺🇸</span> +1 323 503 2827
               </p>
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-gray-300">
                 (If we don’t pick up, drop inquiry.)
               </span>
             </li>
@@ -221,7 +221,7 @@ const Footer = () => {
               <p className="flex items-center gap-2 hover:text-white cursor-pointer">
                 <span>🇮🇳</span> +91 0172 4666470
               </p>
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-gray-300">
                 (If we don’t pick up, drop inquiry.)
               </span>
             </li>
@@ -251,7 +251,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="px-8 md:px-16 py-6 border-t border-white/10 text-center text-sm text-gray-500">
+      <div className="px-8 md:px-16 py-6 border-t border-white/10 text-center text-sm text-gray-300">
         © {new Date().getFullYear()} Webtunix AI. All Rights Reserved.
       </div>
     </footer>
